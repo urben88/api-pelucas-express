@@ -2,7 +2,7 @@ import  express,{ Application } from "express";
 
 //todo Importo las Rutas
 import indexRoutes from './routes/indexRoutes';
-
+import peliculasRoutes from './routes/peliculasRoutes'
 
 class Server{
     //Variables
@@ -23,6 +23,7 @@ class Server{
     routes():void{
         //?Le meto las rutas del index
         this.app.use(indexRoutes);
+        this.app.use("/peliculas",peliculasRoutes);
     }
 
     //? Ejecutar el servidor

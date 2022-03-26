@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 //todo Importo las Rutas
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
+const peliculasRoutes_1 = __importDefault(require("./routes/peliculasRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -20,6 +21,7 @@ class Server {
     routes() {
         //?Le meto las rutas del index
         this.app.use(indexRoutes_1.default);
+        this.app.use("/peliculas", peliculasRoutes_1.default);
     }
     //? Ejecutar el servidor
     start() {
