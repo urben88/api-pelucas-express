@@ -1,0 +1,32 @@
+{
+  "name": "api-pelucas-express",
+  "version": "1.0.0",
+  "description": "Este es el servidor API rest de la aplicación Pelucas Solidarias",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -w",
+    "dev": "nodemon build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/urben88/api-peliculas-express.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/urben88/api-peliculas-express/issues"
+  },
+  "homepage": "https://github.com/urben88/api-peliculas-express#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "morgan": "^1.10.0",
+    "promise-mysql": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "nodemon": "^2.0.15"
+  }
+}
