@@ -31,7 +31,7 @@ class Server {
     routes() {
         //?Le meto las rutas del index
         this.app.use(indexRoutes_1.default);
-        this.app.use("/peliculas", peliculasRoutes_1.default);
+        this.app.use("/api/peliculas", peliculasRoutes_1.default);
     }
     //? Ejecutar el servidor
     start() {

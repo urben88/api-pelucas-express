@@ -1,5 +1,6 @@
 import Router from "express";
 
+import { peliculasController } from '../controllers/peliculasController'
 
 class PeliculasRoutes{
     public router = Router();
@@ -9,9 +10,12 @@ class PeliculasRoutes{
     }
 
     config():void{
-        this.router.get('/', (req,res)=>{
-            res.send('Estas en peliculas');
-        })
+        this.router.get('/',peliculasController.list)
+        this.router.get('/:id',peliculasController.getById)
+        this.router.post('/',peliculasController.create)
+        this.router.delete('/:id',peliculasController.delete)
+        this.router.put('/:id',peliculasController.update)
+    
     }
 }
 const peliculasRoutes = new PeliculasRoutes();

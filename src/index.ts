@@ -35,7 +35,7 @@ class Server{
     routes():void{
         //?Le meto las rutas del index
         this.app.use(indexRoutes);
-        this.app.use("/peliculas",peliculasRoutes);
+        this.app.use("/api/peliculas",peliculasRoutes);
     }
 
     //? Ejecutar el servidor
