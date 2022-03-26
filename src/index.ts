@@ -1,4 +1,8 @@
-import  express,{ Application } from "express"; 
+import express ,{ Application } from "express"; 
+
+import cors from 'cors';
+import morgan from 'morgan';
+
 
 //todo Importo las Rutas
 import indexRoutes from './routes/indexRoutes';
@@ -17,6 +21,14 @@ class Server{
     //? Configuración del servidor
     config():void{
         this.app.set('port',process.env.PORT || 3000)
+        //Sirve para ver mensajes en consola de las peticiones
+        this.app.use(morgan('dev'));
+        //Sirve para comunicar el frontend con el backend
+        this.app.use(cors());
+        //Sirve para que el servidor puede leer objetos json en las peticiones
+        this.app.use(express.json());
+        //Sirve para enviar desde un formulario html
+        this.app.use(express.urlencoded({extended:false}))
     }
 
     //?Las rutas del servidor
