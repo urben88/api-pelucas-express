@@ -2,7 +2,7 @@ import express ,{ Application } from "express";
 
 import cors from 'cors';
 import morgan from 'morgan';
-
+require('dotenv').config()
 
 //todo Importo las Rutas
 import indexRoutes from './routes/indexRoutes';
@@ -20,7 +20,7 @@ class Server{
 
     //? Configuración del servidor
     config():void{
-        this.app.set('port',process.env.PORT || 3000)
+        this.app.set('port',process.env.NODE_DOCKER_PORT || 3000)
         //Sirve para ver mensajes en consola de las peticiones
         this.app.use(morgan('dev'));
         //Sirve para comunicar el frontend con el backend

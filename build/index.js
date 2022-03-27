@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
+require('dotenv').config();
 //todo Importo las Rutas
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 const peliculasRoutes_1 = __importDefault(require("./routes/peliculasRoutes"));
@@ -17,7 +18,7 @@ class Server {
     }
     //? Configuración del servidor
     config() {
-        this.app.set('port', process.env.PORT || 3000);
+        this.app.set('port', process.env.EXPRESS_PORT || 3000);
         //Sirve para ver mensajes en consola de las peticiones
         this.app.use((0, morgan_1.default)('dev'));
         //Sirve para comunicar el frontend con el backend
