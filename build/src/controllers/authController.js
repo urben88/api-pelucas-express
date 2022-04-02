@@ -12,40 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.peliculasController = void 0;
+exports.authController = void 0;
 const database_1 = __importDefault(require("../database/database"));
 //Todo Tipos de status a usar
 //? 200 OK
 //? 404 No se encontro
 //? 500 Error del servidor
-class PeliculasController {
-    list(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            var peliculas = yield database_1.default.query('SELECT * FROM peliculas');
-            res.status(200).json(peliculas);
-        });
-    }
-    getById(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { id } = req.params;
-            const pelicula = yield database_1.default.query('SELECT * FROM peliculas WHERE id = ?', [id]);
-            if (pelicula.length > 0) {
-                res.status(200).json(pelicula[0]);
-            }
-            else {
-                res.status(404).json({ message: "La pelicula no existe" });
-            }
-        });
-    }
+class AuthController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(req.body);
             try {
                 yield database_1.default.query('INSERT INTO peliculas set ?', [req.body]);
-                res.status(200).json('creando una peli');
+                res.status(200).json({
+                    ok: true,
+                    message: "El usuario se sha creado correctamente"
+                });
             }
             catch (error) {
-                res.status(500).json('Error al añadir la pelicula');
+                res.status(500).json('Error al crear el usuario');
             }
         });
     }
@@ -64,4 +48,4 @@ class PeliculasController {
         });
     }
 }
-exports.peliculasController = new PeliculasController();
+exports.authController = new AuthController();

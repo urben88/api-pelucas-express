@@ -1,12 +1,16 @@
 import express ,{ Application } from "express"; 
 
+//? Estos son middlewares para express
 import cors from 'cors';
 import morgan from 'morgan';
+
 require('dotenv').config()
 
 //todo Importo las Rutas
 import indexRoutes from './routes/indexRoutes';
 import peliculasRoutes from './routes/peliculasRoutes'
+import authRoutes from "./routes/authRoutes";
+import userRoutes from './routes/userRoutes';
 
 class Server{
     //Variables
@@ -36,6 +40,8 @@ class Server{
         //?Le meto las rutas del index
         this.app.use(indexRoutes);
         this.app.use("/api/peliculas",peliculasRoutes);
+        this.app.use("/api/auth",authRoutes)
+        this.app.use('/api/user',userRoutes)
     }
 
     //? Ejecutar el servidor

@@ -7,10 +7,14 @@ const promise_mysql_1 = __importDefault(require("promise-mysql"));
 const keys_1 = __importDefault(require("../keys"));
 const pool = promise_mysql_1.default.createPool(keys_1.default.database);
 //Me salia como error el método con npm i promise-mysql@3.3.1 se me soluciono
-pool.getConnection()
-    .then(connection => {
-    pool.releaseConnection(connection);
-    console.log('DB is connected');
-})
-    .catch(error => console.log(error));
+try {
+    pool.getConnection()
+        .then(connection => {
+        pool.releaseConnection(connection);
+        console.log('DB is connected');
+    });
+}
+catch (error) {
+    console.log("Error al conectarse a la base de datos");
+}
 exports.default = pool;
