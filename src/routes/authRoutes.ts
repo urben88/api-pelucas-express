@@ -1,17 +1,17 @@
-import Router from "express";
+// import Router from "express";
 
-import { authController } from "../controllers/authController";
+// import { authController } from "../controllers/authController";
 
-class IndexRoutes{
-    public router = Router();
+// class IndexRoutes{
+//     public router = Router();
 
-    constructor(){
-        this.config();
-    }
+//     constructor(){
+//         this.config();
+//     }
 
-    config():void{
-        this.router.get('/',authController.create)
-    }
-}
-const indexRoutes = new IndexRoutes();
-export default indexRoutes.router;
+//     config():void{
+//         this.router.get('/',authController.create)
+//     }
+// }
+// const indexRoutes = new IndexRoutes();
+// export default indexRoutes.router;

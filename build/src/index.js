@@ -8,11 +8,14 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
 require('dotenv').config();
+//? Conexion data base
+//Esto nos sirve para conectarnos a la base de datos con sequelize
+const models_1 = require("./database/models");
 //todo Importo las Rutas
-const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
-const peliculasRoutes_1 = __importDefault(require("./routes/peliculasRoutes"));
-const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
-const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
+// import indexRoutes from './routes/indexRoutes';
+// import peliculasRoutes from './routes/peliculasRoutes'
+// import authRoutes from "./routes/authRoutes";
+// import userRoutes from './routes/userRoutes';
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -34,15 +37,23 @@ class Server {
     //?Las rutas del servidor
     routes() {
         //?Le meto las rutas del index
-        this.app.use(indexRoutes_1.default);
-        this.app.use("/api/peliculas", peliculasRoutes_1.default);
-        this.app.use("/api/auth", authRoutes_1.default);
-        this.app.use('/api/user', userRoutes_1.default);
+        // this.app.use(indexRoutes);
+        // this.app.use("/api/peliculas",peliculasRoutes);
+        // this.app.use("/api/auth",authRoutes)
+        // this.app.use('/api/user',userRoutes)
     }
     //? Ejecutar el servidor
     start() {
         this.app.listen(this.app.get('port'), () => {
             console.log(`El server funciona en el puerto ${this.app.get('port')}`);
+            //* Despues de ejecutar el servidor hago la conexión a la base de datos
+            this.conexiondb();
+        });
+    }
+    //? Uso el sequeleze del arhcivo de models/indes.js para hacer la conexión  a la base de datos
+    conexiondb() {
+        models_1.sequelize.authenticate().then(() => {
+            console.log('Nos conectamos a la db!!');
         });
     }
 }

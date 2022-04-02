@@ -1,0 +1,9 @@
+// .sequelizerc
+const path = require('path');
+//? Aqui indico las rutas de donde se guardaran las migraciones,seeders,config... Del ORM sequelize
+module.exports = {
+  'config': path.resolve('config','database.js'),
+  'models-path': path.resolve('src','database', 'models'),
+  'seeders-path': path.resolve('src','database', 'seeders'),
+  'migrations-path': path.resolve('src','database', 'migrations')
+};

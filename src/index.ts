@@ -6,11 +6,15 @@ import morgan from 'morgan';
 
 require('dotenv').config()
 
+//? Conexion data base
+//Esto nos sirve para conectarnos a la base de datos con sequelize
+import {sequelize} from './database/models';
+
 //todo Importo las Rutas
-import indexRoutes from './routes/indexRoutes';
-import peliculasRoutes from './routes/peliculasRoutes'
-import authRoutes from "./routes/authRoutes";
-import userRoutes from './routes/userRoutes';
+// import indexRoutes from './routes/indexRoutes';
+// import peliculasRoutes from './routes/peliculasRoutes'
+// import authRoutes from "./routes/authRoutes";
+// import userRoutes from './routes/userRoutes';
 
 class Server{
     //Variables
@@ -38,19 +42,28 @@ class Server{
     //?Las rutas del servidor
     routes():void{
         //?Le meto las rutas del index
-        this.app.use(indexRoutes);
-        this.app.use("/api/peliculas",peliculasRoutes);
-        this.app.use("/api/auth",authRoutes)
-        this.app.use('/api/user',userRoutes)
+        // this.app.use(indexRoutes);
+        // this.app.use("/api/peliculas",peliculasRoutes);
+        // this.app.use("/api/auth",authRoutes)
+        // this.app.use('/api/user',userRoutes)
     }
 
     //? Ejecutar el servidor
     start():void{
         this.app.listen(this.app.get('port'), ()=>{
             console.log(`El server funciona en el puerto ${this.app.get('port')}`)
+            //* Despues de ejecutar el servidor hago la conexión a la base de datos
+            this.conexiondb();
+        })
+    }
+    //? Uso el sequeleze del arhcivo de models/indes.js para hacer la conexión  a la base de datos
+    conexiondb(){
+        sequelize.authenticate().then(()=>{
+            console.log('Nos conectamos a la db!!')
         })
     }
 
 }
 const server = new Server();
 server.start();
+
