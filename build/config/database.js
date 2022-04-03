@@ -14,7 +14,11 @@ module.exports = {
     //Configurar seeders
     seederStorage: "sequelize",
     seederStorageTableName: "seeds",
+    seedersTimestamps: true,
     //Configuración de Migraciones
     migrationStorage: "sequelize",
-    migrationStorageTableName: "migrations"
+    migrationStorageTableName: "migrations",
+    migrationTimestamps: true,
+    //Para que los modelos tengan los mismos nombre que las tablas
+    freezeTableName: true
 };

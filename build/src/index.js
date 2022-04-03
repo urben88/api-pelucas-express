@@ -12,9 +12,9 @@ require('dotenv').config();
 //Esto nos sirve para conectarnos a la base de datos con sequelize
 const models_1 = require("./database/models");
 //todo Importo las Rutas
-// import indexRoutes from './routes/indexRoutes';
+const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 // import peliculasRoutes from './routes/peliculasRoutes'
-// import authRoutes from "./routes/authRoutes";
+const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 // import userRoutes from './routes/userRoutes';
 class Server {
     constructor() {
@@ -37,9 +37,9 @@ class Server {
     //?Las rutas del servidor
     routes() {
         //?Le meto las rutas del index
-        // this.app.use(indexRoutes);
+        this.app.use(indexRoutes_1.default);
         // this.app.use("/api/peliculas",peliculasRoutes);
-        // this.app.use("/api/auth",authRoutes)
+        this.app.use("/api/auth", authRoutes_1.default);
         // this.app.use('/api/user',userRoutes)
     }
     //? Ejecutar el servidor

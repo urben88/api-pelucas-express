@@ -11,9 +11,9 @@ require('dotenv').config()
 import {sequelize} from './database/models';
 
 //todo Importo las Rutas
-// import indexRoutes from './routes/indexRoutes';
+   import indexRoutes from './routes/indexRoutes';
 // import peliculasRoutes from './routes/peliculasRoutes'
-// import authRoutes from "./routes/authRoutes";
+   import authRoutes from "./routes/authRoutes";
 // import userRoutes from './routes/userRoutes';
 
 class Server{
@@ -42,9 +42,9 @@ class Server{
     //?Las rutas del servidor
     routes():void{
         //?Le meto las rutas del index
-        // this.app.use(indexRoutes);
+        this.app.use(indexRoutes);
         // this.app.use("/api/peliculas",peliculasRoutes);
-        // this.app.use("/api/auth",authRoutes)
+        this.app.use("/api/auth",authRoutes)
         // this.app.use('/api/user',userRoutes)
     }
 
