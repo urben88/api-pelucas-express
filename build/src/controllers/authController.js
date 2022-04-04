@@ -17,7 +17,7 @@ exports.authController = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 //? Importo el modelo user
-const { user } = require('../database/models/user'); //! Mirar si le puedo poner un type al ORM
+const { user } = require('../database/models'); //! Mirar si le puedo poner un type al ORM
 //? Configuración para el auth
 const auth_1 = __importDefault(require("../../config/auth"));
 //Todo Tipos de status a usar

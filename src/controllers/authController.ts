@@ -4,8 +4,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 //? Importo el modelo user
-const {user} = require('../database/models/user'); //! Mirar si le puedo poner un type al ORM
-
+const {user} = require('../database/models'); //! Mirar si le puedo poner un type al ORM
 //? Configuración para el auth
 import authConfig from '../../config/auth'
 
@@ -82,5 +81,6 @@ class AuthController{
         })
 
     }
+
 }
 export const authController = new AuthController();

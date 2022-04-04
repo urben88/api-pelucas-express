@@ -1,14 +1,19 @@
 'use strict';
 import {DataTypes, Model } from 'sequelize';
 import { sequelize } from '.';
-export class user extends Model {
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports =  (sequelize, DataTypes) => { 
+  class user extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+       user.hasMany(models.Post)
     }
   }
   user.init({
@@ -42,3 +47,5 @@ export class user extends Model {
     freezeTableName: true,
     modelName: 'user',
 });
+return user;
+};

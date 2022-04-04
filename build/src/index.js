@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -7,6 +16,8 @@ const express_1 = __importDefault(require("express"));
 //? Estos son middlewares para express
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
+//?Importo las asociaciones
+require('./database/asociations');
 require('dotenv').config();
 //? Conexion data base
 //Esto nos sirve para conectarnos a la base de datos con sequelize
@@ -15,6 +26,7 @@ const models_1 = require("./database/models");
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 // import peliculasRoutes from './routes/peliculasRoutes'
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
+const postRoutes_1 = __importDefault(require("./routes/postRoutes"));
 // import userRoutes from './routes/userRoutes';
 class Server {
     constructor() {
@@ -40,6 +52,7 @@ class Server {
         this.app.use(indexRoutes_1.default);
         // this.app.use("/api/peliculas",peliculasRoutes);
         this.app.use("/api/auth", authRoutes_1.default);
+        this.app.use("/api/post", postRoutes_1.default);
         // this.app.use('/api/user',userRoutes)
     }
     //? Ejecutar el servidor
@@ -52,8 +65,12 @@ class Server {
     }
     //? Uso el sequeleze del arhcivo de models/indes.js para hacer la conexión  a la base de datos
     conexiondb() {
-        models_1.sequelize.authenticate().then(() => {
-            console.log('Nos conectamos a la db!!');
+        return __awaiter(this, void 0, void 0, function* () {
+            models_1.sequelize.authenticate().then(() => {
+                console.log('Nos conectamos a la db!!');
+            });
+            //? Sincronizo los modelos con la base de datos 
+            yield models_1.sequelize.sync({ force: true });
         });
     }
 }

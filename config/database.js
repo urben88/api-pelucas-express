@@ -19,5 +19,4 @@ module.exports = {
 
   //Para que los modelos tengan los mismos nombre que las tablas
   freezeTableName: true
-  
 }

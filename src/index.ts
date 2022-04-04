@@ -4,6 +4,9 @@ import express ,{ Application } from "express";
 import cors from 'cors';
 import morgan from 'morgan';
 
+//?Importo las asociaciones
+require('./database/asociations');
+
 require('dotenv').config()
 
 //? Conexion data base
@@ -14,6 +17,7 @@ import {sequelize} from './database/models';
    import indexRoutes from './routes/indexRoutes';
 // import peliculasRoutes from './routes/peliculasRoutes'
    import authRoutes from "./routes/authRoutes";
+   import postRoutes from "./routes/postRoutes";
 // import userRoutes from './routes/userRoutes';
 
 class Server{
@@ -45,6 +49,7 @@ class Server{
         this.app.use(indexRoutes);
         // this.app.use("/api/peliculas",peliculasRoutes);
         this.app.use("/api/auth",authRoutes)
+        this.app.use("/api/post",postRoutes)
         // this.app.use('/api/user',userRoutes)
     }
 
@@ -57,10 +62,12 @@ class Server{
         })
     }
     //? Uso el sequeleze del arhcivo de models/indes.js para hacer la conexión  a la base de datos
-    conexiondb(){
+    async conexiondb(){
         sequelize.authenticate().then(()=>{
             console.log('Nos conectamos a la db!!')
         })
+        //? Sincronizo los modelos con la base de datos 
+        await sequelize.sync({force:true}) 
     }
 
 }
