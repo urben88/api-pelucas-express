@@ -12,7 +12,7 @@ import authConfig from '../../config/auth'
 //? Importo la interfazes creadas por mi
 import { Error } from '../interfaces/error';
 import { User } from '../interfaces/User';
-const {Post} = require('../database/models/Post');
+const {post} = require('../database/models/index');
 //Todo Tipos de status a usar
     //? 200 OK 201 Se ha creado
     //? 404 No se encontro 401 No tienes acceso
@@ -20,7 +20,7 @@ const {Post} = require('../database/models/Post');
 class PostController{
     //? Index
     async index(req:Request,res:Response){
-        await Post.findAll()
+        await post.findAll()
         .then((posts:any)=>{
             if(posts){
                res.status(200).json(posts) 
