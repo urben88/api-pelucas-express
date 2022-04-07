@@ -5,20 +5,23 @@ import cors from 'cors';
 import morgan from 'morgan';
 
 //?Importo las asociaciones
-require('./database/asociations');
+// require('./database/asociations');
 
 require('dotenv').config()
 
 //? Conexion data base
 //Esto nos sirve para conectarnos a la base de datos con sequelize
-import {sequelize} from './database/models';
+const {sequelize} = require('./database/models');
+
+//todo Middleware para las rutas
+import auth from './middlewares/auth'
 
 //todo Importo las Rutas
    import indexRoutes from './routes/indexRoutes';
 // import peliculasRoutes from './routes/peliculasRoutes'
    import authRoutes from "./routes/authRoutes";
    import postRoutes from "./routes/postRoutes";
-// import userRoutes from './routes/userRoutes';
+   import userRoutes from './routes/userRoutes';
 
 class Server{
     //Variables
@@ -49,8 +52,8 @@ class Server{
         this.app.use(indexRoutes);
         // this.app.use("/api/peliculas",peliculasRoutes);
         this.app.use("/api/auth",authRoutes)
-        this.app.use("/api/post",postRoutes)
-        // this.app.use('/api/user',userRoutes)
+        this.app.use("/api/post",auth,postRoutes)
+        this.app.use("/api/user",userRoutes)
     }
 
     //? Ejecutar el servidor
@@ -67,7 +70,7 @@ class Server{
             console.log('Nos conectamos a la db!!')
         })
         //? Sincronizo los modelos con la base de datos 
-        await sequelize.sync({force:true}) 
+        await sequelize.sync({force:false}) 
     }
 
 }

@@ -1,7 +1,6 @@
 'use strict';
-import {DataTypes, Model } from 'sequelize';
-import { sequelize } from '.';
-'use strict';
+// import {DataTypes, Model } from 'sequelize';
+// import { sequelize } from '.';
 const {
   Model
 } = require('sequelize');
@@ -13,10 +12,16 @@ module.exports =  (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-       user.hasMany(models.Post)
+       user.hasMany(models.post,{as:"posts"}) //{ as:"posts", foreignKey:"userEmail"}
     }
   }
   user.init({
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     nombre:{
       type: DataTypes.STRING,
       allowNull: false
@@ -28,7 +33,6 @@ module.exports =  (sequelize, DataTypes) => {
     email:{
       type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true,
       unique: true,
       validate:{
         isEmail:{
@@ -40,6 +44,16 @@ module.exports =  (sequelize, DataTypes) => {
     password:{
       type: DataTypes.STRING,
       allowNull: false
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.fn("NOW"),
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.fn("NOW"),
     }
   }, {
     sequelize,

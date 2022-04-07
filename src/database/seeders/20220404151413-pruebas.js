@@ -1,4 +1,7 @@
 'use strict';
+const bcrypt =  require('bcryptjs');
+const authConfig = require('../../../config/auth.js')
+const {user} = require('../models/index')
 
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -11,12 +14,32 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-     await queryInterface.bulkInsert('user', [{
+     await user.bulkCreate([
+       {
         nombre:"ruben",
         apellidos:"Esteve vicente",
         email:"hudid@gmail.com",
-        password:123
-       }], {});
+        password: bcrypt.hashSync("123",authConfig.rounds),
+        posts:[
+          {
+            title: "Title 1",
+            body:"Body 2"
+          }
+        ]
+       },
+       {
+        nombre:"alberto",
+        apellidos:"Garcia Herrero",
+        email:"alberto@gmail.com",
+        password: bcrypt.hashSync("123",authConfig.rounds)
+       },
+       {
+        nombre:"rodrigo",
+        apellidos:"Llork Puni",
+        email:"rodrigo@gmail.com",
+        password: bcrypt.hashSync("123",authConfig.rounds)
+       }
+      ],{include:"posts"});
   },
 
   async down (queryInterface, Sequelize) {
@@ -26,5 +49,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+     await queryInterface.bulkDelete('user', null, {});
+     await queryInterface.bulkDelete('post', null, {});
   }
 };

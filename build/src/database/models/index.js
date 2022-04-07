@@ -1,9 +1,7 @@
 'use strict';
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.sequelize = void 0;
 // //! Aqui se encuentra la configuración para la conexión a la base de datos
 const config = require('./../../../config/database');
-const sequelize_1 = require("sequelize");
+// import {Sequelize} from "sequelize";
 //? Configuración por defecto
 const fs = require('fs');
 const path = require('path');
@@ -12,7 +10,7 @@ const basename = path.basename(__filename);
 // const config = require('./../../../config/database');
 const db = {};
 //Creamos nuestra conexion
-exports.sequelize = new sequelize_1.Sequelize(config.database, config.username, config.password, config);
+let sequelize = new Sequelize(config.database, config.username, config.password, config);
 //Asociaciones y vinculaciones
 fs
     .readdirSync(__dirname)
@@ -20,7 +18,7 @@ fs
     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
 })
     .forEach(file => {
-    const model = require(path.join(__dirname, file))(exports.sequelize, sequelize_1.Sequelize.DataTypes);
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
 });
 Object.keys(db).forEach(modelName => {
@@ -28,6 +26,6 @@ Object.keys(db).forEach(modelName => {
         db[modelName].associate(db);
     }
 });
-db.sequelize = exports.sequelize;
-db.Sequelize = sequelize_1.Sequelize;
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 module.exports = db;

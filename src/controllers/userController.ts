@@ -1,13 +1,29 @@
-// import { Request, Response  } from "express";
-// import pool from '../database/database'
-// //Todo Tipos de status a usar
-//     //? 200 OK 201 Se ha creado
-//     //? 404 No se encontro
-//     //? 500 Error del servidor  
-// class UserController{
+import { count } from "console";
+import { Request, Response  } from "express";
+import { send } from "process";
 
-//     public async index(req:Request,res:Response) {
-//         res.send('Funciona el user route')
-//     }
-// }
-// export const userController = new UserController();
+//?Modelos
+const {user} = require('../database/models');
+
+//?Interfaces
+import { User } from "../interfaces/User";
+import { Error } from "../interfaces/error";
+//Todo Tipos de status a usar
+    //? 200 OK 201 Se ha creado
+    //? 404 No se encontro 401 No tienes acceso
+    //? 500 Error del servidor
+class UserController{
+
+    public async index(req:Request,res:Response) {
+        await user.findAll({include:"posts"}).then((users:User[]) =>{
+            if(users.length != 0){
+                res.status(200).json(users)
+            }else{
+                res.status(404).json({msg: "No hay usuarios"})
+            }
+        }).catch( (error:Error)=>{
+            res.status(500).json(error)
+        })
+    }
+}
+export const userController = new UserController();

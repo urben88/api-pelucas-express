@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            Post.belongsTo(models.user);
+            Post.belongsTo(models.user, { onDelete: "CASCADE", onUpdate: "CASCADE" }); // ,{as:"author", foreignKey:"userEmail"}
         }
     }
     Post.init({
@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         body: DataTypes.TEXT
     }, {
         sequelize,
-        modelName: 'Post',
+        modelName: 'post',
     });
     return Post;
 };

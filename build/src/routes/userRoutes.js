@@ -1,14 +1,15 @@
 "use strict";
-// import {Router, Request, Response} from 'express'
-// import { userController } from '../controllers/userController';
-// class UserRoutes{
-//     public router = Router()
-//     constructor(){
-//         this.config();
-//     }
-//     config():void{
-//         this.router.get('/',userController.index)
-//     }
-// }
-// const userRoutes = new UserRoutes();
-// export default userRoutes.router;
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const userController_1 = require("../controllers/userController");
+class UserRoutes {
+    constructor() {
+        this.router = (0, express_1.Router)();
+        this.config();
+    }
+    config() {
+        this.router.get('/', userController_1.userController.index);
+    }
+}
+const userRoutes = new UserRoutes();
+exports.default = userRoutes.router;

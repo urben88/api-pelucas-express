@@ -17,17 +17,19 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
 //?Importo las asociaciones
-require('./database/asociations');
+// require('./database/asociations');
 require('dotenv').config();
 //? Conexion data base
 //Esto nos sirve para conectarnos a la base de datos con sequelize
-const models_1 = require("./database/models");
+const { sequelize } = require('./database/models');
+//todo Middleware para las rutas
+const auth_1 = __importDefault(require("./middlewares/auth"));
 //todo Importo las Rutas
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 // import peliculasRoutes from './routes/peliculasRoutes'
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const postRoutes_1 = __importDefault(require("./routes/postRoutes"));
-// import userRoutes from './routes/userRoutes';
+const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -52,8 +54,8 @@ class Server {
         this.app.use(indexRoutes_1.default);
         // this.app.use("/api/peliculas",peliculasRoutes);
         this.app.use("/api/auth", authRoutes_1.default);
-        this.app.use("/api/post", postRoutes_1.default);
-        // this.app.use('/api/user',userRoutes)
+        this.app.use("/api/post", auth_1.default, postRoutes_1.default);
+        this.app.use("/api/user", userRoutes_1.default);
     }
     //? Ejecutar el servidor
     start() {
@@ -66,11 +68,11 @@ class Server {
     //? Uso el sequeleze del arhcivo de models/indes.js para hacer la conexión  a la base de datos
     conexiondb() {
         return __awaiter(this, void 0, void 0, function* () {
-            models_1.sequelize.authenticate().then(() => {
+            sequelize.authenticate().then(() => {
                 console.log('Nos conectamos a la db!!');
             });
             //? Sincronizo los modelos con la base de datos 
-            yield models_1.sequelize.sync({ force: true });
+            yield sequelize.sync({ force: false });
         });
     }
 }

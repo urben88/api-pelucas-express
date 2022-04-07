@@ -2,7 +2,7 @@
 // //! Aqui se encuentra la configuración para la conexión a la base de datos
 
 const config = require('./../../../config/database');
-import {Sequelize} from "sequelize";
+// import {Sequelize} from "sequelize";
 
 
 
@@ -17,7 +17,7 @@ const basename = path.basename(__filename);
 const db = {};
 
 //Creamos nuestra conexion
-export const sequelize = new Sequelize(config.database, config.username, config.password, config);
+let sequelize = new Sequelize(config.database, config.username, config.password, config);
 //Asociaciones y vinculaciones
 fs
   .readdirSync(__dirname)
