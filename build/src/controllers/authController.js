@@ -17,7 +17,7 @@ exports.authController = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 //? Importo el modelo user
-const { user } = require('../database/models'); //! Mirar si le puedo poner un type al ORM
+const { User } = require('../database/models'); //! Mirar si le puedo poner un type al ORM
 //? Configuración para el auth
 const auth_1 = __importDefault(require("../../config/auth"));
 //Todo Tipos de status a usar
@@ -35,23 +35,23 @@ class AuthController {
     signIn(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let { email, password } = req.body;
-            yield user.findOne({
+            yield User.findOne({
                 where: {
                     email: email
                 }
-            }).then((user) => {
-                if (!user) {
+            }).then((User) => {
+                if (!User) {
                     res.status(404).json({ msg: "Usuario no encontrado" });
                 }
                 else {
-                    if (bcryptjs_1.default.compareSync(password, user.password)) {
+                    if (bcryptjs_1.default.compareSync(password, User.password)) {
                         //Devolvemos token
                         //? Creamos el token
-                        let token = jsonwebtoken_1.default.sign({ user: user }, auth_1.default.secret, {
+                        let token = jsonwebtoken_1.default.sign({ user: User }, auth_1.default.secret, {
                             expiresIn: auth_1.default.expires
                         });
                         res.json({
-                            user: user,
+                            user: User,
                             token: token
                         });
                     }
@@ -71,19 +71,19 @@ class AuthController {
             //? Encriptamos la contraseña
             let password = bcryptjs_1.default.hashSync(req.body.password, +auth_1.default.rounds); //? El mas lo tranforma en número
             //*Crear un usuario
-            yield user.create({
+            yield User.create({
                 nombre: req.body.nombre,
                 apellidos: req.body.apellidos,
                 email: req.body.email,
                 password: password
             })
-                .then((user) => {
+                .then((User) => {
                 //? Creamos el token
-                let token = jsonwebtoken_1.default.sign({ user: user }, auth_1.default.secret, {
+                let token = jsonwebtoken_1.default.sign({ user: User }, auth_1.default.secret, {
                     expiresIn: auth_1.default.expires
                 });
                 res.json({
-                    user: user,
+                    user: User,
                     token: token
                 });
             }).catch((error) => {

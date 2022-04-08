@@ -4,13 +4,13 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 //? Importo el modelo user
-const {user} = require('../database/models'); //! Mirar si le puedo poner un type al ORM
+const {User} = require('../database/models'); //! Mirar si le puedo poner un type al ORM
 //? Configuración para el auth
 import authConfig from '../../config/auth'
 
 //? Importo la interfazes creadas por mi
 import { Error } from '../interfaces/error';
-import { User } from '../interfaces/User';
+import { UserI} from '../interfaces/User';
 //Todo Tipos de status a usar
     //? 200 OK 201 Se ha creado
     //? 404 No se encontro 401 No tienes acceso
@@ -26,22 +26,22 @@ class AuthController{
     //?Login
     async signIn(req:Request,res:Response){
         let { email, password } = req.body;
-        await user.findOne({
+        await User.findOne({
             where: {
                 email: email
             }
-        }).then((user:User) =>{
-            if(!user){
+        }).then((User:UserI) =>{
+            if(!User){
                 res.status(404).json({msg: "Usuario no encontrado"})
             }else{
-                if(bcrypt.compareSync(password,user.password)){
+                if(bcrypt.compareSync(password,User.password)){
                     //Devolvemos token
                     //? Creamos el token
-                    let token = jwt.sign({user:user},authConfig.secret,{
+                    let token = jwt.sign({user:User},authConfig.secret,{
                         expiresIn : authConfig.expires
                     })
                     res.json({
-                        user: user,
+                        user: User,
                         token: token
                     })
                 }else{
@@ -61,19 +61,19 @@ class AuthController{
         let password = bcrypt.hashSync(req.body.password, +authConfig.rounds) //? El mas lo tranforma en número
         
         //*Crear un usuario
-        await user.create({
+        await User.create({
             nombre: req.body.nombre,
             apellidos: req.body.apellidos,
             email: req.body.email,
             password: password
         })
-        .then( (user:User) =>{
+        .then( (User:UserI) =>{
             //? Creamos el token
-            let token = jwt.sign({user:user},authConfig.secret,{
+            let token = jwt.sign({user:User},authConfig.secret,{
                 expiresIn : authConfig.expires
             })
             res.json({
-                user:user,
+                user:User,
                 token:token
             });
         }).catch( (error:Error) =>{

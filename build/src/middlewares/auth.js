@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const auth_1 = __importDefault(require("../../config/auth"));
+const { User } = require('../database/models/index');
 exports.default = (req, res, next) => {
     console.log(req.headers);
     //?Comprobar si existe el token
@@ -20,8 +21,11 @@ exports.default = (req, res, next) => {
             }
             else {
                 //*El decoded es el usuario del token (devuelve el objeto del usuario)
-                console.log(decoded);
-                next();
+                User.findByPk(decoded.user.id, { include: "roles" }).then((user) => {
+                    console.log(user.roles);
+                    req.useruu = user;
+                    next();
+                });
             }
         });
     }

@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
 import authConfig from "../../config/auth"
+import { UserI } from "../interfaces/User";
+const {User} = require('../database/models/index');
 export default (req:any,res:any,next:any):any =>{
     console.log(req.headers)
 
@@ -15,10 +17,13 @@ export default (req:any,res:any,next:any):any =>{
             if(err){
                 res.status(500).json({msg: "Ha ocurrido un problema al decodificar el token", err })
             }else{
-
                //*El decoded es el usuario del token (devuelve el objeto del usuario)
-               console.log(decoded)
-               next();  
+               User.findByPk(decoded.user.id,{ include: "roles"}).then((user:any)=>{
+                  console.log(user.roles)
+                  req.useruu = user
+                  next();  
+               })
+              
             }
 
         })

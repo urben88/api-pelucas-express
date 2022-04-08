@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.postController = void 0;
 //? Importo el modelo user
 const { user } = require('../database/models/user'); //! Mirar si le puedo poner un type al ORM
-const { post } = require('../database/models/index');
+const { Post } = require('../database/models/index');
 //Todo Tipos de status a usar
 //? 200 OK 201 Se ha creado
 //? 404 No se encontro 401 No tienes acceso
@@ -21,7 +21,7 @@ class PostController {
     //? Index
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield post.findAll()
+            yield Post.findAll()
                 .then((posts) => {
                 if (posts) {
                     res.status(200).json(posts);

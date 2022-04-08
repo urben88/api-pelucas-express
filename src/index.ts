@@ -70,7 +70,7 @@ class Server{
             console.log('Nos conectamos a la db!!')
         })
         //? Sincronizo los modelos con la base de datos 
-        await sequelize.sync({force:false}) 
+        // await sequelize.sync({force:false}) 
     }
 
 }

@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const bcrypt = require('bcryptjs');
 const authConfig = require('../../../config/auth.js');
-const { user } = require('../models/index');
+const { User } = require('../models/index');
 module.exports = {
     up(queryInterface, Sequelize) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -23,11 +23,11 @@ module.exports = {
              *   isBetaMember: false
              * }], {});
             */
-            yield user.bulkCreate([
+            yield User.bulkCreate([
                 {
-                    nombre: "ruben",
+                    nombre: "Ruben",
                     apellidos: "Esteve vicente",
-                    email: "hudid@gmail.com",
+                    email: "tirolin25@gmail.com",
                     password: bcrypt.hashSync("123", authConfig.rounds),
                     posts: [
                         {
@@ -59,8 +59,8 @@ module.exports = {
              * Example:
              * await queryInterface.bulkDelete('People', null, {});
              */
-            yield queryInterface.bulkDelete('user', null, {});
-            yield queryInterface.bulkDelete('post', null, {});
+            yield queryInterface.bulkDelete('User', null, {});
+            yield queryInterface.bulkDelete('Post', null, {});
         });
     }
 };

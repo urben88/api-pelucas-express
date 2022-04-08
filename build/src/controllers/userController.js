@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
 //?Modelos
-const { user } = require('../database/models');
+const { User } = require('../database/models');
 //Todo Tipos de status a usar
 //? 200 OK 201 Se ha creado
 //? 404 No se encontro 401 No tienes acceso
@@ -19,7 +19,7 @@ const { user } = require('../database/models');
 class UserController {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield user.findAll({ include: "posts" }).then((users) => {
+            yield User.findAll({ include: "posts" }).then((users) => {
                 if (users.length != 0) {
                     res.status(200).json(users);
                 }

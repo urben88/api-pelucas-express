@@ -1,7 +1,7 @@
 'use strict';
 const bcrypt =  require('bcryptjs');
 const authConfig = require('../../../config/auth.js')
-const {user} = require('../models/index')
+const {User} = require('../models/index')
 
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -14,7 +14,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-     await user.bulkCreate([
+     await User.bulkCreate([
        {
         nombre:"ruben",
         apellidos:"Esteve vicente",
@@ -49,7 +49,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-     await queryInterface.bulkDelete('user', null, {});
-     await queryInterface.bulkDelete('post', null, {});
+     await queryInterface.bulkDelete('User', null, {});
+     await queryInterface.bulkDelete('Post', null, {});
   }
 };

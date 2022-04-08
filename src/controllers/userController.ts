@@ -3,10 +3,10 @@ import { Request, Response  } from "express";
 import { send } from "process";
 
 //?Modelos
-const {user} = require('../database/models');
+const {User} = require('../database/models');
 
 //?Interfaces
-import { User } from "../interfaces/User";
+import { UserI } from "../interfaces/User";
 import { Error } from "../interfaces/error";
 //Todo Tipos de status a usar
     //? 200 OK 201 Se ha creado
@@ -15,7 +15,7 @@ import { Error } from "../interfaces/error";
 class UserController{
 
     public async index(req:Request,res:Response) {
-        await user.findAll({include:"posts"}).then((users:User[]) =>{
+        await User.findAll({include:"posts"}).then((users:UserI[]) =>{
             if(users.length != 0){
                 res.status(200).json(users)
             }else{

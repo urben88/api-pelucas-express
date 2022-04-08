@@ -3,17 +3,18 @@
 // import { sequelize } from '.';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class user extends Model {
+    class User extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            user.hasMany(models.post, { as: "posts" }); //{ as:"posts", foreignKey:"userEmail"}
+            User.hasMany(models.Post, { as: "posts" }); //{ as:"posts", foreignKey:"userEmail"}
+            User.belongsToMany(models.Role, { as: "roles", through: "user_role", foreignKey: "user_id" });
         }
     }
-    user.init({
+    User.init({
         id: {
             allowNull: false,
             autoIncrement: true,
@@ -57,7 +58,8 @@ module.exports = (sequelize, DataTypes) => {
         sequelize,
         timestamps: true,
         freezeTableName: true,
-        modelName: 'user',
+        modelName: 'User',
+        tableName: 'users'
     });
-    return user;
+    return User;
 };

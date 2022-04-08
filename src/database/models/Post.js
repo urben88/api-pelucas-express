@@ -13,16 +13,16 @@ module.exports =  (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Post.belongsTo(models.user,{onDelete:"CASCADE",onUpdate:"CASCADE"}) // ,{as:"author", foreignKey:"userEmail"}
+      Post.belongsTo(models.User,{onDelete:"CASCADE",onUpdate:"CASCADE", foreignKey:"userId"}) // ,{as:"author", foreignKey:"userEmail"}
     }
   }
   Post.init({
     title: DataTypes.STRING,
     body: DataTypes.TEXT
   }, {
-
     sequelize,
-    modelName: 'post',
+    modelName: 'Post',
+    tableName: 'posts'
   });
   return Post;
 };

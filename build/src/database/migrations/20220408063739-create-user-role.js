@@ -11,46 +11,45 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 module.exports = {
     up(queryInterface, Sequelize) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryInterface.createTable('users', {
+            yield queryInterface.createTable('user_role', {
                 id: {
                     allowNull: false,
                     autoIncrement: true,
                     primaryKey: true,
                     type: Sequelize.INTEGER
                 },
-                nombre: {
-                    type: Sequelize.STRING,
+                user_id: {
+                    type: Sequelize.INTEGER,
                     allowNull: false,
+                    references: {
+                        model: "users",
+                        key: 'id'
+                    }
                 },
-                apellidos: {
-                    type: Sequelize.STRING,
+                role_id: {
+                    type: Sequelize.INTEGER,
                     allowNull: false,
-                },
-                email: {
-                    type: Sequelize.STRING,
-                    allowNull: false,
-                    unique: true
-                },
-                password: {
-                    type: Sequelize.STRING,
-                    allowNull: false,
+                    references: {
+                        model: "roles",
+                        key: 'id'
+                    }
                 },
                 createdAt: {
-                    type: Sequelize.DATE,
                     allowNull: false,
-                    defaultValue: Sequelize.fn("NOW"),
+                    type: Sequelize.DATE,
+                    defaultValue: Sequelize.fn("NOW")
                 },
                 updatedAt: {
-                    type: Sequelize.DATE,
                     allowNull: false,
-                    defaultValue: Sequelize.fn("NOW"),
+                    type: Sequelize.DATE,
+                    defaultValue: Sequelize.fn("NOW")
                 }
             });
         });
     },
     down(queryInterface, Sequelize) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryInterface.dropTable('users');
+            yield queryInterface.dropTable('user_role');
         });
     }
 };
