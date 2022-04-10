@@ -16,6 +16,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      telefono: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      cpostal:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       email: {
         type: Sequelize.STRING,
         allowNull: false,

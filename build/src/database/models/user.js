@@ -40,6 +40,14 @@ module.exports = (sequelize, DataTypes) => {
                 },
             }
         },
+        telefono: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        cpostal: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
         password: {
             type: DataTypes.STRING,
             allowNull: false
