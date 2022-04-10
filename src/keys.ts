@@ -1,9 +1,11 @@
 require('dotenv').config();
+
 export default {
     database:{
         host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password:process.env.DB_PASSWORD,
-        database:process.env.DB_NAME
+        user: process.env.MYSQLDB_USER,
+        password:process.env.MYSQLDB_ROOT_PASSWORD,
+        database:process.env.MYSQLDB_DATABASE,
+         // port:process.env.MYSQLDB_LOCAL_PORT
     }
 }
