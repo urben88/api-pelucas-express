@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const postController_1 = require("../controllers/postController");
+//!Guards
+const PostGuard_1 = __importDefault(require("../guards/PostGuard"));
 class AuthRoutes {
     constructor() {
         this.router = (0, express_1.default)();
@@ -12,6 +14,9 @@ class AuthRoutes {
     }
     config() {
         this.router.get('/', postController_1.postController.index);
+        this.router.get('/:id', postController_1.postController.find, PostGuard_1.default.show, postController_1.postController.show);
+        this.router.put('/:id', postController_1.postController.find, postController_1.postController.update);
+        this.router.delete('/:id', postController_1.postController.find, postController_1.postController.delete);
     }
 }
 const authRoutes = new AuthRoutes();

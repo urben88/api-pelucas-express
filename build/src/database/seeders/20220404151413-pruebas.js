@@ -25,7 +25,7 @@ module.exports = {
             */
             yield User.bulkCreate([
                 {
-                    nombre: "Ruben",
+                    nombre: "ruben",
                     apellidos: "Esteve vicente",
                     email: "tirolin25@gmail.com",
                     password: bcrypt.hashSync("123", authConfig.rounds),
@@ -40,7 +40,21 @@ module.exports = {
                     nombre: "alberto",
                     apellidos: "Garcia Herrero",
                     email: "alberto@gmail.com",
-                    password: bcrypt.hashSync("123", authConfig.rounds)
+                    password: bcrypt.hashSync("123", authConfig.rounds),
+                    posts: [
+                        {
+                            title: "Title 2",
+                            body: "Body 3"
+                        },
+                        {
+                            title: "Title 2",
+                            body: "Body 3"
+                        },
+                        {
+                            title: "Title 2",
+                            body: "Body 3"
+                        }
+                    ]
                 },
                 {
                     nombre: "rodrigo",

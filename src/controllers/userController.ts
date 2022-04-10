@@ -15,7 +15,7 @@ import { Error } from "../interfaces/error";
 class UserController{
 
     public async index(req:Request,res:Response) {
-        await User.findAll({include:"posts"}).then((users:UserI[]) =>{
+        await User.findAll({include:["posts","roles"]}).then((users:UserI[]) =>{
             if(users.length != 0){
                 res.status(200).json(users)
             }else{

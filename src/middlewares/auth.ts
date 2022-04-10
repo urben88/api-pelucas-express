@@ -20,7 +20,7 @@ export default (req:any,res:any,next:any):any =>{
                //*El decoded es el usuario del token (devuelve el objeto del usuario)
                User.findByPk(decoded.user.id,{ include: "roles"}).then((user:any)=>{
                   console.log(user.roles)
-                  req.useruu = user
+                  req.user = user
                   next();  
                })
               

@@ -18,6 +18,19 @@ const { Post } = require('../database/models/index');
 //? 404 No se encontro 401 No tienes acceso
 //? 500 Error del servidor
 class PostController {
+    //? Find este es un método que actuará como middleware y será reusado
+    find(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let post = yield Post.findByPk(req.params.id);
+            if (!post) {
+                res.status(404).json({ msg: "No se ha encontrado ningun post" });
+            }
+            else {
+                req.post = post;
+                next();
+            }
+        });
+    }
     //? Index
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -33,6 +46,45 @@ class PostController {
                 .catch((error) => {
                 res.status(500).json(error);
             });
+        });
+    }
+    //Show
+    show(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                res.json(req.post);
+            }
+            catch (error) {
+                res.status(500).json(error);
+            }
+        });
+    }
+    //Update
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                req.post.title = req.body.title;
+                req.post.body = req.body.body;
+                req.post.save().then((post) => {
+                    res.status(200).json(post);
+                });
+            }
+            catch (error) {
+                res.status(500).json(error);
+            }
+        });
+    }
+    //Delete
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                req.post.destroy().then((post) => {
+                    res.status(200).json({ post, msg: "El post ha sido eliminado" });
+                });
+            }
+            catch (error) {
+                res.status(500).json(error);
+            }
         });
     }
 }

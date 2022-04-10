@@ -12,7 +12,7 @@ module.exports =  (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-       User.hasMany(models.Post,{as:"posts"}) //{ as:"posts", foreignKey:"userEmail"}
+       User.hasMany(models.Post,{as:"posts", foreignKey:"userId"}) //{ as:"posts", foreignKey:"userEmail"}
        User.belongsToMany(models.Role,{as:"roles",through:"user_role",foreignKey:"user_id"})
     }
   }
@@ -63,5 +63,25 @@ module.exports =  (sequelize, DataTypes) => {
     modelName: 'User',
     tableName: 'users'
 });
+
+// Comprueba que el usuario es administrador
+User.isAdmin = function(roles){
+  let tmpArray = [] ;
+  roles.forEach(role => tmpArray.push(role.role))
+  return tmpArray.includes('admin');
+}
+// Comprueba que el usuario es colaborador
+User.isColaborador = function(roles){
+  let tmpArray = [] ;
+  roles.forEach(role => tmpArray.push(role.role))
+  return tmpArray.includes('colaborador');
+}
+// Comprueba que el usuario es receptor
+User.isAdmin = function(roles){
+  let tmpArray = [] ;
+  roles.forEach(role => tmpArray.push(role.role))
+  return tmpArray.includes('receptor');
+}
+
 return User;
 };

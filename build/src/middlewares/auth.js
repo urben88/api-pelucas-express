@@ -23,7 +23,7 @@ exports.default = (req, res, next) => {
                 //*El decoded es el usuario del token (devuelve el objeto del usuario)
                 User.findByPk(decoded.user.id, { include: "roles" }).then((user) => {
                     console.log(user.roles);
-                    req.useruu = user;
+                    req.user = user;
                     next();
                 });
             }

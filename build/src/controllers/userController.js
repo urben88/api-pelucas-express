@@ -19,7 +19,7 @@ const { User } = require('../database/models');
 class UserController {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield User.findAll({ include: "posts" }).then((users) => {
+            yield User.findAll({ include: ["posts", "roles"] }).then((users) => {
                 if (users.length != 0) {
                     res.status(200).json(users);
                 }
