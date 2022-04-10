@@ -15,8 +15,8 @@ class AuthRoutes {
     config() {
         this.router.get('/', postController_1.postController.index);
         this.router.get('/:id', postController_1.postController.find, PostGuard_1.default.show, postController_1.postController.show);
-        this.router.put('/:id', postController_1.postController.find, postController_1.postController.update);
-        this.router.delete('/:id', postController_1.postController.find, postController_1.postController.delete);
+        this.router.put('/:id', postController_1.postController.find, PostGuard_1.default.update, postController_1.postController.update);
+        this.router.delete('/:id', postController_1.postController.find, PostGuard_1.default.delete, postController_1.postController.delete);
     }
 }
 const authRoutes = new AuthRoutes();

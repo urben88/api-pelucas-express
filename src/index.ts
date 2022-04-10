@@ -53,7 +53,7 @@ class Server{
         // this.app.use("/api/peliculas",peliculasRoutes);
         this.app.use("/api/auth",authRoutes)
         this.app.use("/api/post",auth,postRoutes)
-        this.app.use("/api/user",userRoutes)
+        this.app.use("/api/user",auth,userRoutes)
     }
 
     //? Ejecutar el servidor

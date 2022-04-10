@@ -55,7 +55,7 @@ class Server {
         // this.app.use("/api/peliculas",peliculasRoutes);
         this.app.use("/api/auth", authRoutes_1.default);
         this.app.use("/api/post", auth_1.default, postRoutes_1.default);
-        this.app.use("/api/user", userRoutes_1.default);
+        this.app.use("/api/user", auth_1.default, userRoutes_1.default);
     }
     //? Ejecutar el servidor
     start() {
