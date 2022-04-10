@@ -26,7 +26,6 @@ const { sequelize } = require('./database/models');
 const auth_1 = __importDefault(require("./middlewares/auth"));
 //todo Importo las Rutas
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
-// import peliculasRoutes from './routes/peliculasRoutes'
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const postRoutes_1 = __importDefault(require("./routes/postRoutes"));
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
@@ -52,7 +51,6 @@ class Server {
     routes() {
         //?Le meto las rutas del index
         this.app.use(indexRoutes_1.default);
-        // this.app.use("/api/peliculas",peliculasRoutes);
         this.app.use("/api/auth", authRoutes_1.default);
         this.app.use("/api/post", auth_1.default, postRoutes_1.default);
         this.app.use("/api/user", auth_1.default, userRoutes_1.default);

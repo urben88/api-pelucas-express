@@ -18,7 +18,6 @@ import auth from './middlewares/auth'
 
 //todo Importo las Rutas
    import indexRoutes from './routes/indexRoutes';
-// import peliculasRoutes from './routes/peliculasRoutes'
    import authRoutes from "./routes/authRoutes";
    import postRoutes from "./routes/postRoutes";
    import userRoutes from './routes/userRoutes';
@@ -50,7 +49,6 @@ class Server{
     routes():void{
         //?Le meto las rutas del index
         this.app.use(indexRoutes);
-        // this.app.use("/api/peliculas",peliculasRoutes);
         this.app.use("/api/auth",authRoutes)
         this.app.use("/api/post",auth,postRoutes)
         this.app.use("/api/user",auth,userRoutes)
