@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken';
 
 //? Importo el modelo user
 const {User} = require('../database/models'); //! Mirar si le puedo poner un type al ORM
+const {Role} = require('../database/models');
+const {User_role} = require('../database/models');
 //? Configuración para el auth
 import authConfig from '../../config/auth'
 
@@ -59,23 +61,33 @@ class AuthController{
     public async signUp(req:Request,res:Response){
         //? Encriptamos la contraseña
         let password = bcrypt.hashSync(req.body.password, +authConfig.rounds) //? El mas lo tranforma en número
-        
+        let rol = await Role.findOne({ where:{ role: req.body.rol }})
         //*Crear un usuario
         await User.create({
             nombre: req.body.nombre,
             apellidos: req.body.apellidos,
             email: req.body.email,
-            password: password
+            password: password,
+            telefono: req.body.telefono,
+            cpostal: req.body.cpostal,
         })
         .then( (User:UserI) =>{
             //? Creamos el token
             let token = jwt.sign({user:User},authConfig.secret,{
                 expiresIn : authConfig.expires
             })
-            res.json({
-                user:User,
-                token:token
-            });
+            User_role.create({
+                user_id: User.id,
+                role_id: rol.id
+            }).then( (User_Role:any)=>{
+                res.json({
+                    user:User,
+                    token:token,
+                });  
+            }).catch((error:Error)=>{
+                res.status(500).json(error)
+            })
+          
         }).catch( (error:Error) =>{
             res.status(500).json(error)
         })

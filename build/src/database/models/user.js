@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             User.hasMany(models.Post, { as: "posts", foreignKey: "userId" }); //{ as:"posts", foreignKey:"userEmail"}
-            User.belongsToMany(models.Role, { as: "roles", through: "user_role", foreignKey: "user_id" });
+            User.belongsToMany(models.Role, { as: "rol", through: "user_role", foreignKey: "user_id" });
+            User.hasMany(models.User_role, { as: "user_role_user", foreignKey: "user_id" });
         }
     }
     User.init({
@@ -39,6 +40,14 @@ module.exports = (sequelize, DataTypes) => {
                     msg: "El correo electronico no está bien escrito"
                 },
             }
+        },
+        telefono: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        cpostal: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
         password: {
             type: DataTypes.STRING,

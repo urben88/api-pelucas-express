@@ -18,6 +18,8 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 //? Importo el modelo user
 const { User } = require('../database/models'); //! Mirar si le puedo poner un type al ORM
+const { Role } = require('../database/models');
+const { User_role } = require('../database/models');
 //? Configuración para el auth
 const auth_1 = __importDefault(require("../../config/auth"));
 //Todo Tipos de status a usar
@@ -70,21 +72,31 @@ class AuthController {
         return __awaiter(this, void 0, void 0, function* () {
             //? Encriptamos la contraseña
             let password = bcryptjs_1.default.hashSync(req.body.password, +auth_1.default.rounds); //? El mas lo tranforma en número
+            let rol = yield Role.findOne({ where: { role: req.body.rol } });
             //*Crear un usuario
             yield User.create({
                 nombre: req.body.nombre,
                 apellidos: req.body.apellidos,
                 email: req.body.email,
-                password: password
+                password: password,
+                telefono: req.body.telefono,
+                cpostal: req.body.cpostal,
             })
                 .then((User) => {
                 //? Creamos el token
                 let token = jsonwebtoken_1.default.sign({ user: User }, auth_1.default.secret, {
                     expiresIn: auth_1.default.expires
                 });
-                res.json({
-                    user: User,
-                    token: token
+                User_role.create({
+                    user_id: User.id,
+                    role_id: rol.id
+                }).then((User_Role) => {
+                    res.json({
+                        user: User,
+                        token: token,
+                    });
+                }).catch((error) => {
+                    res.status(500).json(error);
                 });
             }).catch((error) => {
                 res.status(500).json(error);

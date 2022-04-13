@@ -31,6 +31,14 @@ module.exports = {
                     allowNull: false,
                     unique: true
                 },
+                telefono: {
+                    type: Sequelize.STRING,
+                    allowNull: false
+                },
+                cpostal: {
+                    type: Sequelize.STRING,
+                    allowNull: false
+                },
                 password: {
                     type: Sequelize.STRING,
                     allowNull: false,
