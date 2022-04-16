@@ -91,7 +91,36 @@ class AuthController{
         }).catch( (error:Error) =>{
             res.status(500).json(error)
         })
+    }
 
+    //TODO Falta hacer el update
+    public async update(req:Request,res:Response){
+
+
+    }
+
+    public async refreshToken(req:Request,res:Response){
+        let refreshToken = req.headers.authorization?.split(' ')[1] as string;
+
+        //?Si no existe el token
+        if(!refreshToken){
+            res.status(400).json({msg:"Algo ha ido mal en el refresh del token"})       
+        }
+        let userfind;
+        try{
+            const verifyResult:any = jwt.verify(refreshToken,authConfig.secret);
+            const {user} = verifyResult;
+            userfind = await User.findByPk(user.id);
+        }catch(error){
+            return res.status(500).json({msg:"Algo ha ido mal en buscar al usuario de refrescar",error:error,token:refreshToken})
+        }
+        const token = jwt.sign({user:userfind},authConfig.secret,{ expiresIn:authConfig.expires})
+        res.status(200).json({token:token})
+
+    }
+
+    public async getUser(req:Request,res:Response){
+        res.status(200).json(req.user)
     }
 
 }

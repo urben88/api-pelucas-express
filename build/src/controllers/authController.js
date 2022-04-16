@@ -103,5 +103,36 @@ class AuthController {
             });
         });
     }
+    //TODO Falta hacer el update
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+        });
+    }
+    refreshToken(req, res) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            let refreshToken = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1];
+            //?Si no existe el token
+            if (!refreshToken) {
+                res.status(400).json({ msg: "Algo ha ido mal en el refresh del token" });
+            }
+            let userfind;
+            try {
+                const verifyResult = jsonwebtoken_1.default.verify(refreshToken, auth_1.default.secret);
+                const { user } = verifyResult;
+                userfind = yield User.findByPk(user.id);
+            }
+            catch (error) {
+                return res.status(500).json({ msg: "Algo ha ido mal en buscar al usuario de refrescar", error: error, token: refreshToken });
+            }
+            const token = jsonwebtoken_1.default.sign({ user: userfind }, auth_1.default.secret, { expiresIn: auth_1.default.expires });
+            res.status(200).json({ token: token });
+        });
+    }
+    getUser(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            res.status(200).json(req.user);
+        });
+    }
 }
 exports.authController = new AuthController();

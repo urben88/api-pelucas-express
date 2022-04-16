@@ -18,7 +18,7 @@ export default (req:any,res:any,next:any):any =>{
                 res.status(500).json({msg: "Ha ocurrido un problema al decodificar el token", err })
             }else{
                //*El decoded es el usuario del token (devuelve el objeto del usuario)
-               User.findByPk(decoded.user.id,{ include: "roles"}).then((user:any)=>{
+               User.findByPk(decoded.user.id,{ include: "rol"}).then((user:any)=>{
                   console.log(user.roles)
                   req.user = user
                   next();  
