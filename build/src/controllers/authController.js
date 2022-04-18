@@ -105,7 +105,27 @@ class AuthController {
     }
     //TODO Falta hacer el update
     update(req, res) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            let passwordencript = bcryptjs_1.default.hashSync(req.body.password, +auth_1.default.rounds); //? El mas lo tranforma en número
+            let user;
+            console.log(req.body);
+            //? Decodifico el jwt
+            jsonwebtoken_1.default.verify((_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1], auth_1.default.secret, (err, decoded) => {
+                user = decoded.user;
+                //? Actualizo el usuario
+                let resul = decoded;
+                resul.password = passwordencript;
+                User.update(resul, { where: {
+                        id: user.id
+                    }
+                }).then((newUser) => {
+                    res.status(200).json({ msg: "Se ha actualizado con éxito" });
+                }).catch((err) => {
+                    console.log(err);
+                    res.status(500).json(err);
+                });
+            });
         });
     }
     refreshToken(req, res) {

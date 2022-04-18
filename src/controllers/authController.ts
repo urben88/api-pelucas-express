@@ -95,8 +95,28 @@ class AuthController{
 
     //TODO Falta hacer el update
     public async update(req:Request,res:Response){
-
-
+        let passwordencript = bcrypt.hashSync(req.body.password, +authConfig.rounds) //? El mas lo tranforma en número
+        let user:UserI;
+        console.log(req.body)
+        //? Decodifico el jwt
+        jwt.verify(req.headers.authorization?.split(' ')[1] as string,authConfig.secret,
+            (err,decoded:any)=>{
+                user=decoded.user;
+                //? Actualizo el usuario
+                let resul = decoded;
+                resul.password = passwordencript;
+                User.update(resul,
+                    {   where:{
+                            id:user.id
+                        }
+                    }).then((newUser:UserI)=>{
+                        res.status(200).json({msg:"Se ha actualizado con éxito"})
+                    }).catch((err:Error)=>{
+                        console.log(err)
+                        res.status(500).json(err)
+                    })
+            }
+        )
     }
 
     public async refreshToken(req:Request,res:Response){
