@@ -31,5 +31,35 @@ class UserController {
             });
         });
     }
+    showOne(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield User.findOne({ where: { id: req.params.id } })
+                .then((user) => {
+                if (user == null) {
+                    res.status(404).json({ msg: "No existe el ususario con ese id" });
+                }
+                else {
+                    res.status(200).json(user);
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let user = yield User.destroy({ where: { id: req.params.id }, force: true })
+                .then((resul) => {
+                if (resul == 0) {
+                    res.status(404).json({ msg: "No existe el usuario que buscas" });
+                }
+                else {
+                    res.status(200).json({ msg: "Eliminado correctamente" });
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
 }
 exports.userController = new UserController();

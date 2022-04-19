@@ -15,6 +15,9 @@ module.exports =  (sequelize, DataTypes) => {
        User.hasMany(models.Post,{as:"posts", foreignKey:"userId"}) //{ as:"posts", foreignKey:"userEmail"}
        User.belongsToMany(models.Role,{as:"rol",through:"user_role",foreignKey:"user_id"})
        User.hasMany(models.User_role,{as:"user_role_user",foreignKey:"user_id"})
+       User.hasOne(models.Datos_clinicos,{as:"datos_clinicos",foreignKey:"user_id"})
+       User.hasOne(models.Medidas,{as:"medidas",foreignKey:"user_id"})
+       User.hasMany(models.Notificaciones,{as:"notificaciones",foreignKey:"user_id"})
       }
   }
   User.init({

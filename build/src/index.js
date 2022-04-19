@@ -29,6 +29,9 @@ const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const postRoutes_1 = __importDefault(require("./routes/postRoutes"));
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
+const datos_clinicosRoutes_1 = __importDefault(require("./routes/datos_clinicosRoutes"));
+const medidasRoutes_1 = __importDefault(require("./routes/medidasRoutes"));
+const notificacionesRoutes_1 = __importDefault(require("./routes/notificacionesRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -54,6 +57,9 @@ class Server {
         this.app.use("/api/auth", authRoutes_1.default);
         this.app.use("/api/post", auth_1.default, postRoutes_1.default);
         this.app.use("/api/user", auth_1.default, userRoutes_1.default);
+        this.app.use("/api/datos_clinicos", auth_1.default, datos_clinicosRoutes_1.default);
+        this.app.use("/api/medidas", auth_1.default, medidasRoutes_1.default);
+        this.app.use("/api/notificaciones", auth_1.default, notificacionesRoutes_1.default);
     }
     //? Ejecutar el servidor
     start() {

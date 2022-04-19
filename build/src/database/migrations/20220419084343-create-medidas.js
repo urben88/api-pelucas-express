@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 module.exports = {
     up(queryInterface, Sequelize) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryInterface.createTable('user_role', {
+            yield queryInterface.createTable('medidas', {
                 id: {
                     allowNull: false,
                     autoIncrement: true,
@@ -28,16 +28,29 @@ module.exports = {
                     onDelete: "CASCADE",
                     onUpdate: "CASCADE"
                 },
-                role_id: {
-                    type: Sequelize.INTEGER,
-                    allowNull: false,
-                    references: {
-                        model: "roles",
-                        key: 'id'
-                    },
-                    //?Con esto evito que cuando se borre un usuario se borre tambien el rol en la tabal role
-                    onDelete: "NO ACTION",
-                    onUpdate: "CASCADE"
+                redondo: {
+                    type: Sequelize.FLOAT
+                },
+                patilla_a_patilla: {
+                    type: Sequelize.FLOAT
+                },
+                largo_de_frente: {
+                    type: Sequelize.FLOAT
+                },
+                sien_a_sien: {
+                    type: Sequelize.FLOAT
+                },
+                oreja_a_oreja_por_encima: {
+                    type: Sequelize.FLOAT
+                },
+                anchura_del_cuello_superiror: {
+                    type: Sequelize.FLOAT
+                },
+                oreja_a_oreja_por_nacimiento_pelo: {
+                    type: Sequelize.FLOAT
+                },
+                anchura_cuello_inferior: {
+                    type: Sequelize.FLOAT
                 },
                 createdAt: {
                     allowNull: false,
@@ -54,7 +67,7 @@ module.exports = {
     },
     down(queryInterface, Sequelize) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryInterface.dropTable('user_role');
+            yield queryInterface.dropTable('medidas');
         });
     }
 };

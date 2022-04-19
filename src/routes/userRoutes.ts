@@ -10,6 +10,8 @@ class UserRoutes{
 
     config():void{
         this.router.get('/',userController.index)
+        this.router.get('/:id',userController.showOne)
+        this.router.delete('/:id',userController.delete)
     }
 }
 const userRoutes = new UserRoutes();

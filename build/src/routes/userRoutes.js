@@ -9,6 +9,8 @@ class UserRoutes {
     }
     config() {
         this.router.get('/', userController_1.userController.index);
+        this.router.get('/:id', userController_1.userController.showOne);
+        this.router.delete('/:id', userController_1.userController.delete);
     }
 }
 const userRoutes = new UserRoutes();

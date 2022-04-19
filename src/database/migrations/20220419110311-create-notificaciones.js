@@ -1,34 +1,28 @@
 'use strict';
-
 module.exports = {
-  async up (queryInterface, Sequelize) {
-      await queryInterface.createTable('user_role', {
-      id:{
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('notificaciones', {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
+      user_id:{
         type: Sequelize.INTEGER,
         allowNull: false,
         references:{
           model:"users",
           key:'id'
         },
-        onDelete:"CASCADE",
+        onDelete: "CASCADE",
         onUpdate: "CASCADE"
       },
-      role_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references:{
-          model:"roles",
-          key:'id'
-        },
-        //?Con esto evito que cuando se borre un usuario se borre tambien el rol en la tabal role
-        onDelete:"NO ACTION",
-        onUpdate: "CASCADE"
+      tipo: {
+        type: Sequelize.STRING
+      },
+      mensaje: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
@@ -41,11 +35,8 @@ module.exports = {
         defaultValue: Sequelize.fn("NOW")
       }
     });
-  
   },
-
-  async down (queryInterface, Sequelize) {
-      await queryInterface.dropTable('user_role');
-   
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('notificaciones');
   }
 };

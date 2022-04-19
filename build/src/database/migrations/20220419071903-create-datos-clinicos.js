@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 module.exports = {
     up(queryInterface, Sequelize) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryInterface.createTable('user_role', {
+            yield queryInterface.createTable('datos_clinicos', {
                 id: {
                     allowNull: false,
                     autoIncrement: true,
@@ -28,16 +28,31 @@ module.exports = {
                     onDelete: "CASCADE",
                     onUpdate: "CASCADE"
                 },
-                role_id: {
-                    type: Sequelize.INTEGER,
+                enfermedades: {
+                    type: Sequelize.BOOLEAN,
                     allowNull: false,
-                    references: {
-                        model: "roles",
-                        key: 'id'
-                    },
-                    //?Con esto evito que cuando se borre un usuario se borre tambien el rol en la tabal role
-                    onDelete: "NO ACTION",
-                    onUpdate: "CASCADE"
+                },
+                tratamiento_actual: {
+                    type: Sequelize.TEXT
+                },
+                medicacion: {
+                    type: Sequelize.TEXT
+                },
+                otros: {
+                    type: Sequelize.TEXT
+                },
+                alergias: {
+                    type: Sequelize.BOOLEAN,
+                    allowNull: false,
+                },
+                alergias_medicacion: {
+                    type: Sequelize.STRING
+                },
+                alergias_cosmeticos: {
+                    type: Sequelize.STRING
+                },
+                alergias_tipos: {
+                    type: Sequelize.TEXT
                 },
                 createdAt: {
                     allowNull: false,
@@ -54,7 +69,7 @@ module.exports = {
     },
     down(queryInterface, Sequelize) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryInterface.dropTable('user_role');
+            yield queryInterface.dropTable('datos_clinicos');
         });
     }
 };
