@@ -25,6 +25,16 @@ module.exports = {
                     user_id: 1,
                     tipo: "success",
                     mensaje: "Ya esta tu peluca"
+                },
+                {
+                    user_id: 1,
+                    tipo: "info",
+                    mensaje: "Ya esta tu peluca"
+                },
+                {
+                    user_id: 1,
+                    tipo: "warn",
+                    mensaje: "Ya esta tu peluca"
                 }
             ], {});
         });

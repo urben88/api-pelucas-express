@@ -25,7 +25,7 @@ class NotificacionesController {
     actual(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let user = req.user;
-            Notificaciones.findOne({ where: { user_id: user.id } })
+            Notificaciones.findAll({ where: { user_id: user.id } })
                 .then((notificaciones) => {
                 if (notificaciones == null) {
                     res.status(404).json({ msg: "No tiene notificaciones" });
