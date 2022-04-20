@@ -96,7 +96,10 @@ class AuthController{
 
     //TODO Falta hacer el update
     public async update(req:Request,res:Response){
-        let passwordencript = bcrypt.hashSync(req.body.password, +authConfig.rounds) //? El mas lo tranforma en número
+        let passwordencript!:any;
+        if(req.body.password){
+            passwordencript = bcrypt.hashSync(req.body.password, +authConfig.rounds) //? El mas lo tranforma en número
+        }
         let user:UserI;
         console.log(req.body)
         //? Decodifico el jwt
@@ -105,7 +108,9 @@ class AuthController{
                 user=decoded.user;
                 //? Actualizo el usuario
                 let resul = decoded;
-                resul.password = passwordencript;
+                if(req.body.password){
+                    resul.password = passwordencript;
+                }
                 User.update(resul,
                     {   where:{
                             id:user.id

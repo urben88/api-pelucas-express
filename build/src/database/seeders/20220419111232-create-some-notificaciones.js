@@ -35,7 +35,22 @@ module.exports = {
                     user_id: 1,
                     tipo: "warn",
                     mensaje: "Ya esta tu peluca"
-                }
+                },
+                {
+                    user_id: 2,
+                    tipo: "success",
+                    mensaje: "Ya tienes la peluca lista"
+                },
+                {
+                    user_id: 3,
+                    tipo: "warn",
+                    mensaje: "Error al enviar la peluca"
+                },
+                {
+                    user_id: 2,
+                    tipo: "warn",
+                    mensaje: "Se ha cancelado tu petición de servicio"
+                },
             ], {});
         });
     },

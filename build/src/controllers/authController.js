@@ -108,7 +108,10 @@ class AuthController {
     update(req, res) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            let passwordencript = bcryptjs_1.default.hashSync(req.body.password, +auth_1.default.rounds); //? El mas lo tranforma en número
+            let passwordencript;
+            if (req.body.password) {
+                passwordencript = bcryptjs_1.default.hashSync(req.body.password, +auth_1.default.rounds); //? El mas lo tranforma en número
+            }
             let user;
             console.log(req.body);
             //? Decodifico el jwt
@@ -116,7 +119,9 @@ class AuthController {
                 user = decoded.user;
                 //? Actualizo el usuario
                 let resul = decoded;
-                resul.password = passwordencript;
+                if (req.body.password) {
+                    resul.password = passwordencript;
+                }
                 User.update(resul, { where: {
                         id: user.id
                     }
