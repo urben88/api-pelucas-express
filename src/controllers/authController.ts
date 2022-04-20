@@ -31,7 +31,8 @@ class AuthController{
         await User.findOne({
             where: {
                 email: email
-            }
+            },
+            include:'rol'
         }).then((User:UserI) =>{
             if(!User){
                 res.status(404).json({msg: "Usuario no encontrado"})

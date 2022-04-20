@@ -3,7 +3,7 @@ import { Request, Response  } from "express";
 import { send } from "process";
 
 //?Modelos
-const {User} = require('../database/models');
+const {User,Role} = require('../database/models');
 
 //?Interfaces
 import { UserI } from "../interfaces/User";
@@ -27,7 +27,7 @@ class UserController{
     }
 
     async showOne(req:Request,res:Response){
-        await User.findOne({where:{id:req.params.id}})
+        await User.findOne({where:{id:req.params.id},include:"rol"})
         .then((user:any)=>{
             if(user == null){
                 res.status(404).json({msg: "No existe el ususario con ese id"})

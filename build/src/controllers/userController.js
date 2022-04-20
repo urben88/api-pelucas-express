@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
 //?Modelos
-const { User } = require('../database/models');
+const { User, Role } = require('../database/models');
 //Todo Tipos de status a usar
 //? 200 OK 201 Se ha creado
 //? 404 No se encontro 401 No tienes acceso
@@ -33,7 +33,7 @@ class UserController {
     }
     showOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield User.findOne({ where: { id: req.params.id } })
+            yield User.findOne({ where: { id: req.params.id }, include: "rol" })
                 .then((user) => {
                 if (user == null) {
                     res.status(404).json({ msg: "No existe el ususario con ese id" });

@@ -15,7 +15,7 @@ class AuthRoutes{
         this.router.post('/singin',authController.signIn)
         this.router.post('/singup',authController.signUp)
         this.router.get('/user',auth,authController.getUser)
-        this.router.get('/refresh',auth,authController.refreshToken),
+        this.router.get('/refresh',authController.refreshToken),
         this.router.put('/update',auth,authController.update)
     }
 }

@@ -40,7 +40,8 @@ class AuthController {
             yield User.findOne({
                 where: {
                     email: email
-                }
+                },
+                include: 'rol'
             }).then((User) => {
                 if (!User) {
                     res.status(404).json({ msg: "Usuario no encontrado" });
