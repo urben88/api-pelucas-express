@@ -29,7 +29,7 @@ module.exports = {
                     apellidos: "Esteve vicente",
                     email: "tirolin25@gmail.com",
                     password: bcrypt.hashSync("123", authConfig.rounds),
-                    telefono: "111 111 1111",
+                    telefono: "123456789",
                     cpostal: "12345",
                     posts: [
                         {
@@ -43,7 +43,7 @@ module.exports = {
                     apellidos: "Garcia Herrero",
                     email: "alberto@gmail.com",
                     password: bcrypt.hashSync("123", authConfig.rounds),
-                    telefono: "222 222 2222",
+                    telefono: "123456789",
                     cpostal: "12345",
                     posts: [
                         {
@@ -65,7 +65,7 @@ module.exports = {
                     apellidos: "Llork Puni",
                     email: "rodrigo@gmail.com",
                     password: bcrypt.hashSync("123", authConfig.rounds),
-                    telefono: "333 333 3333",
+                    telefono: "123456789",
                     cpostal: "12345",
                 }
             ], { include: "posts" });

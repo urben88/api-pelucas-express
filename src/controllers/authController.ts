@@ -100,22 +100,20 @@ class AuthController{
         if(req.body.password){
             passwordencript = bcrypt.hashSync(req.body.password, +authConfig.rounds) //? El mas lo tranforma en número
         }
-        let user:UserI;
+        // let user:UserI;
         console.log(req.body)
         //? Decodifico el jwt
         jwt.verify(req.headers.authorization?.split(' ')[1] as string,authConfig.secret,
             (err,decoded:any)=>{
-                user=decoded.user;
                 //? Actualizo el usuario
-                let resul = decoded;
+                let resul = req.body;
                 if(req.body.password){
                     resul.password = passwordencript;
                 }
-                User.update(resul,
-                    {   where:{
-                            id:user.id
-                        }
-                    }).then((newUser:UserI)=>{
+                // console.log(resul)
+                // console.log(decoded.user)
+                User.update(resul,{where:{id:decoded.user.id}})
+                .then((newUser:UserI)=>{
                         res.status(200).json({msg:"Se ha actualizado con éxito"})
                     }).catch((err:Error)=>{
                         console.log(err)

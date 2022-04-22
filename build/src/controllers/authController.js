@@ -112,20 +112,19 @@ class AuthController {
             if (req.body.password) {
                 passwordencript = bcryptjs_1.default.hashSync(req.body.password, +auth_1.default.rounds); //? El mas lo tranforma en número
             }
-            let user;
+            // let user:UserI;
             console.log(req.body);
             //? Decodifico el jwt
             jsonwebtoken_1.default.verify((_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1], auth_1.default.secret, (err, decoded) => {
-                user = decoded.user;
                 //? Actualizo el usuario
-                let resul = decoded;
+                let resul = req.body;
                 if (req.body.password) {
                     resul.password = passwordencript;
                 }
-                User.update(resul, { where: {
-                        id: user.id
-                    }
-                }).then((newUser) => {
+                // console.log(resul)
+                // console.log(decoded.user)
+                User.update(resul, { where: { id: decoded.user.id } })
+                    .then((newUser) => {
                     res.status(200).json({ msg: "Se ha actualizado con éxito" });
                 }).catch((err) => {
                     console.log(err);
