@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     ciudad: DataTypes.STRING,
     nombre: DataTypes.STRING,
     info: DataTypes.STRING,
+    img: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Centros',
