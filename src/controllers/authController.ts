@@ -72,13 +72,15 @@ class AuthController{
             telefono: req.body.telefono,
             cpostal: req.body.cpostal,
         })
-        .then( (User:UserI) =>{
+        .then( (User:any) =>{
+            // console.log('User',User.id)
+            // console.log('rol',rol)
             //? Creamos el token
             let token = jwt.sign({user:User},authConfig.secret,{
                 expiresIn : authConfig.expires
             })
             User_role.create({
-                user_id: User.id,
+                user_id: User.dataValues.id,
                 role_id: rol.id
             }).then( (User_Role:any)=>{
                 res.json({
@@ -86,11 +88,11 @@ class AuthController{
                     token:token,
                 });  
             }).catch((error:Error)=>{
-                res.status(500).json(error)
+                res.status(500).json({error,msg:"Error en rol"})
             })
           
         }).catch( (error:Error) =>{
-            res.status(500).json(error)
+            res.status(500).json({error,msg:"Error en user"})
         })
     }
 

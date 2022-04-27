@@ -24,6 +24,7 @@ import auth from './middlewares/auth'
    import datos_clinicosRoutes from './routes/datos_clinicosRoutes';
    import medidasRoutes from './routes/medidasRoutes';
    import notificacionesRoutes from './routes/notificacionesRoutes';
+   import centrosRoutes from './routes/centrosRoutes';
 
 class Server{
     //Variables
@@ -58,6 +59,7 @@ class Server{
         this.app.use("/api/datos_clinicos",auth,datos_clinicosRoutes)
         this.app.use("/api/medidas",auth,medidasRoutes)
         this.app.use("/api/notificaciones",auth,notificacionesRoutes)
+        this.app.use("/api/centros",centrosRoutes)
     }
 
     //? Ejecutar el servidor

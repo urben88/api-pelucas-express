@@ -84,12 +84,14 @@ class AuthController {
                 cpostal: req.body.cpostal,
             })
                 .then((User) => {
+                // console.log('User',User.id)
+                // console.log('rol',rol)
                 //? Creamos el token
                 let token = jsonwebtoken_1.default.sign({ user: User }, auth_1.default.secret, {
                     expiresIn: auth_1.default.expires
                 });
                 User_role.create({
-                    user_id: User.id,
+                    user_id: User.dataValues.id,
                     role_id: rol.id
                 }).then((User_Role) => {
                     res.json({
@@ -97,10 +99,10 @@ class AuthController {
                         token: token,
                     });
                 }).catch((error) => {
-                    res.status(500).json(error);
+                    res.status(500).json({ error, msg: "Error en rol" });
                 });
             }).catch((error) => {
-                res.status(500).json(error);
+                res.status(500).json({ error, msg: "Error en user" });
             });
         });
     }
