@@ -38,5 +38,22 @@ class NotificacionesController {
             });
         });
     }
+    //TODO Falta hacer la busqueda de posts por id del usu
+    findUserNotificaciones(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let id = req.params.id;
+            Notificaciones.findAll({ where: { user_id: id } })
+                .then((notificaciones) => {
+                if (notificaciones == null) {
+                    res.status(404).json({ msg: "No tiene notificaciones" });
+                }
+                else {
+                    res.status(200).json(notificaciones);
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
 }
 exports.notificacionesController = new NotificacionesController();

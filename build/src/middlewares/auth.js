@@ -17,7 +17,7 @@ exports.default = (req, res, next) => {
         let token = req.headers.authorization.split(" ")[1];
         jsonwebtoken_1.default.verify(token, auth_1.default.secret, (err, decoded) => {
             if (err) {
-                res.status(500).json({ msg: "Ha ocurrido un problema al decodificar el token", err });
+                res.status(500).json(err);
             }
             else {
                 //*El decoded es el usuario del token (devuelve el objeto del usuario)

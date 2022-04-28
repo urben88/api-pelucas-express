@@ -15,7 +15,7 @@ export default (req:any,res:any,next:any):any =>{
         jwt.verify(token,authConfig.secret,(err:any, decoded:any) =>{
 
             if(err){
-                res.status(500).json({msg: "Ha ocurrido un problema al decodificar el token", err })
+                res.status(500).json(err)
             }else{
                //*El decoded es el usuario del token (devuelve el objeto del usuario)
                User.findOne({
