@@ -28,6 +28,8 @@ exports.default = (req, res, next) => {
                     console.log(user.rol);
                     req.user = user;
                     next();
+                }).catch((err) => {
+                    throw ("Error en el auth middleware");
                 });
             }
         });

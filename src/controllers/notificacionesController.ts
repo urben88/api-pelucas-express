@@ -52,5 +52,30 @@ class NotificacionesController{
             res.status(500).json(err)
         })
     }
+    async create(req:Request,res:Response){
+
+        Notificaciones.create(req.body)
+        .then((resul:any)=>{
+            res.status(200).json(resul)
+        })
+        .catch((err:Error)=>{
+            res.status(500).json(err)
+        })
+
+        
+    }
+    async showOne(req:Request,res:Response){
+        Notificaciones.findOne({where:{id:req.params.id}})
+        .then((resul:any)=>{
+            if(resul == null){
+                res.status(404).json({msg:"No se ha encontrado ninguna notificación con esa id"})
+            }else{
+                res.status(200).json(resul)
+            }
+        })
+        .catch((err:Error)=>{
+            res.status(500).json(err)
+        })
+    }
 }
 export const notificacionesController = new NotificacionesController();

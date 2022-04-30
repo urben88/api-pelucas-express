@@ -69,5 +69,32 @@ class NotificacionesController {
             });
         });
     }
+    create(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            Notificaciones.create(req.body)
+                .then((resul) => {
+                res.status(200).json(resul);
+            })
+                .catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
+    showOne(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            Notificaciones.findOne({ where: { id: req.params.id } })
+                .then((resul) => {
+                if (resul == null) {
+                    res.status(404).json({ msg: "No se ha encontrado ninguna notificación con esa id" });
+                }
+                else {
+                    res.status(200).json(resul);
+                }
+            })
+                .catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
 }
 exports.notificacionesController = new NotificacionesController();

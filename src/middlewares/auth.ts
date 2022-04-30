@@ -25,7 +25,9 @@ export default (req:any,res:any,next:any):any =>{
                   console.log(user.rol)
                   req.user = user
                   next();  
-               })
+               }).catch((err:any)=>{
+                 throw ("Error en el auth middleware")
+               })   
               
             }
 
