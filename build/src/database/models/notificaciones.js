@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     }
     Notificaciones.init({
         tipo: DataTypes.STRING,
-        mensaje: DataTypes.TEXT
+        header: DataTypes.STRING,
+        mensaje: DataTypes.TEXT,
     }, {
         sequelize,
         modelName: 'Notificaciones',

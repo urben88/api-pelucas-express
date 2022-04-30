@@ -92,7 +92,7 @@ class AuthController{
             })
           
         }).catch( (error:Error) =>{
-            res.status(500).json({error,msg:"Error en user"})
+            res.status(500).json(error)
         })
     }
 

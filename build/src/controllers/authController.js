@@ -102,7 +102,7 @@ class AuthController {
                     res.status(500).json({ error, msg: "Error en rol" });
                 });
             }).catch((error) => {
-                res.status(500).json({ error, msg: "Error en user" });
+                res.status(500).json(error);
             });
         });
     }

@@ -38,7 +38,6 @@ class NotificacionesController {
             });
         });
     }
-    //TODO Falta hacer la busqueda de posts por id del usu
     findUserNotificaciones(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let id = req.params.id;
@@ -49,6 +48,21 @@ class NotificacionesController {
                 }
                 else {
                     res.status(200).json(notificaciones);
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
+    delete(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            Notificaciones.destroy({ where: { id: req.params.id }, force: true })
+                .then((resul) => {
+                if (resul == 0) {
+                    res.status(404).json({ msg: "No existe la notificación que buscas" });
+                }
+                else {
+                    res.status(200).json({ msg: "Eliminado correctamente" });
                 }
             }).catch((err) => {
                 res.status(500).json(err);

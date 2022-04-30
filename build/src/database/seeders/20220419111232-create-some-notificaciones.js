@@ -24,31 +24,37 @@ module.exports = {
                 {
                     user_id: 1,
                     tipo: "success",
+                    header: "Ya esta tu peluca",
                     mensaje: "Ya esta tu peluca"
                 },
                 {
                     user_id: 1,
                     tipo: "info",
+                    header: "Ya esta tu peluca",
                     mensaje: "Ya esta tu peluca"
                 },
                 {
                     user_id: 1,
                     tipo: "warn",
+                    header: "Ya esta tu peluca",
                     mensaje: "Ya esta tu peluca"
                 },
                 {
                     user_id: 2,
                     tipo: "success",
+                    header: "Ya esta tu peluca",
                     mensaje: "Ya tienes la peluca lista"
                 },
                 {
                     user_id: 3,
                     tipo: "warn",
+                    header: "Ya esta tu peluca",
                     mensaje: "Error al enviar la peluca"
                 },
                 {
                     user_id: 2,
                     tipo: "warn",
+                    header: "Ya esta tu peluca",
                     mensaje: "Se ha cancelado tu petición de servicio"
                 },
             ], {});

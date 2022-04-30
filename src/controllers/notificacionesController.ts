@@ -26,7 +26,7 @@ class NotificacionesController{
             res.status(500).json(err)
         }) 
     }
-    //TODO Falta hacer la busqueda de posts por id del usu
+
     async findUserNotificaciones(req:Request,res:Response){
         let id = req.params.id
         Notificaciones.findAll({where:{user_id:id}})
@@ -39,6 +39,18 @@ class NotificacionesController{
         }).catch((err:any)=>{
             res.status(500).json(err)
         }) 
+    }
+    async delete(req:Request,res:Response){
+        Notificaciones.destroy({where:{id:req.params.id},force: true})
+        .then((resul:any)=>{
+            if(resul == 0){
+                res.status(404).json({msg:"No existe la notificación que buscas"})
+            }else{
+                res.status(200).json({msg:"Eliminado correctamente"})
+            }
+        }).catch((err:Error)=>{
+            res.status(500).json(err)
+        })
     }
 }
 export const notificacionesController = new NotificacionesController();

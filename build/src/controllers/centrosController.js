@@ -56,7 +56,7 @@ class CentrosController {
             });
         });
     }
-    //Show
+    //?Show
     show(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -67,6 +67,7 @@ class CentrosController {
             }
         });
     }
+    //? Update
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             yield Centros.update(req.body, { where: { id: req.body.id } })
@@ -82,7 +83,7 @@ class CentrosController {
             });
         });
     }
-    //Delete
+    //?Delete Sin acabar
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

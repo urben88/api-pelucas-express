@@ -54,7 +54,7 @@ class CentrosController{
       
     }
 
-    //Show
+    //?Show
     async show(req:Request|any, res:Response){
         try{
            res.json(req.post)
@@ -63,6 +63,7 @@ class CentrosController{
         }
        
     }
+    //? Update
     async update(req:Request,res:Response){
         
         await Centros.update(req.body,{where:{id:req.body.id}})
@@ -76,7 +77,8 @@ class CentrosController{
             res.status(500).json(err)
         })
     }
-    //Delete
+
+    //?Delete Sin acabar
     async delete(req:Request|any,res:Response){
        try{
             req.post.destroy().then((post:any)=>{
