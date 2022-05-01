@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 //? Estos son middlewares para express
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
+const body_parser_1 = __importDefault(require("body-parser"));
 //?Importo las asociaciones
 // require('./database/asociations');
 require('dotenv').config();
@@ -49,7 +50,9 @@ class Server {
         //Sirve para que el servidor puede leer objetos json en las peticiones
         this.app.use(express_1.default.json());
         //Sirve para enviar desde un formulario html
-        this.app.use(express_1.default.urlencoded({ extended: false }));
+        this.app.use(express_1.default.urlencoded({ limit: '100mb', extended: false }));
+        //Esto me ayuda a controlar el peso del body (Para subir imagenes).
+        this.app.use(body_parser_1.default.json({ limit: '100mb' }));
     }
     //?Las rutas del servidor
     routes() {

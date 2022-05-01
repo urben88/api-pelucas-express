@@ -3,6 +3,7 @@ import express ,{ Application } from "express";
 //? Estos son middlewares para express
 import cors from 'cors';
 import morgan from 'morgan';
+import bodyParser from 'body-parser';
 
 //?Importo las asociaciones
 // require('./database/asociations');
@@ -46,7 +47,10 @@ class Server{
         //Sirve para que el servidor puede leer objetos json en las peticiones
         this.app.use(express.json());
         //Sirve para enviar desde un formulario html
-        this.app.use(express.urlencoded({extended:false}))
+        this.app.use(express.urlencoded({limit: '100mb',extended:false}))
+        //Esto me ayuda a controlar el peso del body (Para subir imagenes).
+        this.app.use(bodyParser.json({limit:'100mb'}))
+
     }
 
     //?Las rutas del servidor

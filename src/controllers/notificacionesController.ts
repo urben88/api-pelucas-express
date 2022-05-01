@@ -1,4 +1,5 @@
 import { Request, Response} from 'express';
+import { Notificacion } from '../interfaces/Notificacion';
 import { UserI } from '../interfaces/User';
 // import pkg from '../../package.json'; //? Da error pero funciona esto es por el tsconfig
 const {Medidas,User,Notificaciones} = require('../database/models');
@@ -77,5 +78,28 @@ class NotificacionesController{
             res.status(500).json(err)
         })
     }
+
+    async update(req:Request,res:Response){
+        
+        Notificaciones.update(req.body,{where:{id:req.params.id}})
+        .then((resul:any)=>{
+            if(resul == null){
+                res.status(404).json({msg:"No se ha encontrado ninguna notificación con esa id"})
+            }else{
+                Notificaciones.findOne({where:{id:req.params.id}})
+                .then((noti:Notificacion)=>{
+                    res.status(200).json(noti)
+                })
+                .catch((err:Error)=>{
+                    res.status(500).json(err)
+                })
+            }
+        })
+        .catch((err:Error)=>{
+            res.status(500).json(err)
+        })
+
+    }
+
 }
 export const notificacionesController = new NotificacionesController();

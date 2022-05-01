@@ -28,7 +28,7 @@ module.exports = {
       },
       mensaje: {
         allowNull: false,
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT('long')
       },
       createdAt: {
         allowNull: false,
