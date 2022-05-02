@@ -18,9 +18,12 @@ module.exports = {
         onDelete: "CASCADE",
         onUpdate: "CASCADE"
       },
-      enfermedades: {
+      have_enfermedades: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
+      },
+      enfermedades: {
+        type: Sequelize.TEXT
       },
       tratamiento_actual: {
         type: Sequelize.TEXT
@@ -31,18 +34,15 @@ module.exports = {
       otros: {
         type: Sequelize.TEXT
       },
-      alergias: {
+      have_alergias: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
+      alergias: {
+        type: Sequelize.TEXT
+      },
       alergias_medicacion: {
         type: Sequelize.STRING
-      },
-      alergias_cosmeticos: {
-        type: Sequelize.STRING
-      },
-      alergias_tipos: {
-        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

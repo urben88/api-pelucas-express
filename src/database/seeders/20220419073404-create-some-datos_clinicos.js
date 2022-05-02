@@ -14,14 +14,14 @@ module.exports = {
      queryInterface.bulkInsert('datos_clinicos', [
       {
         user_id:1,
-        enfermedades:true,
+        have_enfermedades:true,
+        enfermedades:"Tengo leucemia",
         tratamiento_actual:"Limpiarse el cuero cabelludo",
         medicacion: null,
         otros: null,
-        alergias:true,
+        have_alergias:true,
+        alergias:"Tengo alergias a los gatos",
         alergias_medicacion:"Paracetamol",
-        alergias_cosmeticos:null,
-        alergias_tipos:"metales,factores ambiaentales",
       }
     ]);
   },

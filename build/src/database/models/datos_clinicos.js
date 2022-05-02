@@ -12,14 +12,14 @@ module.exports = (sequelize, DataTypes) => {
         }
     }
     Datos_clinicos.init({
-        enfermedades: DataTypes.BOOLEAN,
+        have_enfermedades: DataTypes.BOOLEAN,
+        enfermedades: DataTypes.TEXT,
         tratamiento_actual: DataTypes.TEXT,
         medicacion: DataTypes.TEXT,
         otros: DataTypes.TEXT,
-        alergias: DataTypes.BOOLEAN,
+        have_alergias: DataTypes.BOOLEAN,
+        alergias: DataTypes.TEXT,
         alergias_medicacion: DataTypes.STRING,
-        alergias_cosmeticos: DataTypes.STRING,
-        alergias_tipos: DataTypes.TEXT
     }, {
         sequelize,
         modelName: 'Datos_clinicos',
