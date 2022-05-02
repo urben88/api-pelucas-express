@@ -18,6 +18,7 @@ class Datos_ClinicosRoutes {
         this.router.post('/create', notificacionesController_1.notificacionesController.create);
         this.router.get('/:id', notificacionesController_1.notificacionesController.showOne);
         this.router.put('/:id', notificacionesController_1.notificacionesController.update);
+        this.router.get('/isFromActualUser/:id', notificacionesController_1.notificacionesController.isFromActualUser);
     }
 }
 const medidasRoutes = new Datos_ClinicosRoutes();

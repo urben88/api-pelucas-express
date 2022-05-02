@@ -27,6 +27,19 @@ class NotificacionesController{
             res.status(500).json(err)
         }) 
     }
+    async isFromActualUser(req:Request,res:Response){
+        let user:any = req.user;
+        Notificaciones.findOne({where:{user_id:user.id,id:req.params.id}})
+        .then((notificacion:Notificacion)=>{
+            if(notificacion == null){
+                res.status(404).json({msg:"No exite la notificacion"})
+            }else{
+                res.status(200).json(notificacion);
+            }
+        }).catch((err:any)=>{
+            res.status(500).json(err)
+        }) 
+    }
 
     async findUserNotificaciones(req:Request,res:Response){
         let id = req.params.id

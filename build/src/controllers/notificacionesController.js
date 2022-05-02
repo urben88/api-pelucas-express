@@ -38,6 +38,22 @@ class NotificacionesController {
             });
         });
     }
+    isFromActualUser(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let user = req.user;
+            Notificaciones.findOne({ where: { user_id: user.id, id: req.params.id } })
+                .then((notificacion) => {
+                if (notificacion == null) {
+                    res.status(404).json({ msg: "No exite la notificacion" });
+                }
+                else {
+                    res.status(200).json(notificacion);
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
     findUserNotificaciones(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let id = req.params.id;
