@@ -25,7 +25,7 @@ module.exports = {
                         model: "users",
                         key: 'id'
                     },
-                    onDelete: "CASCADE",
+                    onDelete: "NO ACTION",
                     onUpdate: "CASCADE"
                 },
                 have_enfermedades: {

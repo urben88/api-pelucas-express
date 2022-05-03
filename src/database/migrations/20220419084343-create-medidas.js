@@ -15,7 +15,7 @@ module.exports = {
           model:"users",
           key:'id'
         },
-        onDelete: "CASCADE",
+        onDelete: "NO ACTION",
         onUpdate: "CASCADE"
       },
       redondo: {
@@ -33,7 +33,7 @@ module.exports = {
       oreja_a_oreja_por_encima: {
         type: Sequelize.FLOAT 
       },
-      anchura_del_cuello_superiror: {
+      anchura_del_cuello_superior: {
         type: Sequelize.FLOAT 
       },
       oreja_a_oreja_por_nacimiento_pelo: {

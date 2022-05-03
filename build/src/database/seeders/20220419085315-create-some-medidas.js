@@ -28,7 +28,7 @@ module.exports = {
                     largo_de_frente: 99,
                     sien_a_sien: 20,
                     oreja_a_oreja_por_encima: 2.978,
-                    anchura_del_cuello_superiror: 83.29,
+                    anchura_del_cuello_superior: 83.29,
                     oreja_a_oreja_por_nacimiento_pelo: 293.9,
                     anchura_cuello_inferior: 283.2,
                 }

@@ -13,6 +13,11 @@ class Datos_ClinicosRoutes{
     config():void{
         this.router.get('/',medidasController.index)
         this.router.get('/actual',medidasController.actual)
+        this.router.get('/findUserMedidas/:id',medidasController.findUserMedidas)
+        this.router.post('/create',medidasController.create)
+        this.router.put('/:id',medidasController.update)
+        this.router.delete('/:id',medidasController.remove)
+
     }
 }
 const medidasRoutes = new Datos_ClinicosRoutes();

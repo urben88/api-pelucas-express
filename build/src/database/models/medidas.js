@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         largo_de_frente: DataTypes.FLOAT,
         sien_a_sien: DataTypes.FLOAT,
         oreja_a_oreja_por_encima: DataTypes.FLOAT,
-        anchura_del_cuello_superiror: DataTypes.FLOAT,
+        anchura_del_cuello_superior: DataTypes.FLOAT,
         oreja_a_oreja_por_nacimiento_pelo: DataTypes.FLOAT,
         anchura_cuello_inferior: DataTypes.FLOAT
     }, {
