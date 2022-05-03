@@ -42,5 +42,82 @@ class Datos_ClinicosController {
             });
         });
     }
+    findUserDatosClinicos(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            Datos_clinicos.findOne({ where: { user_id: req.params.id } })
+                .then((medidas) => {
+                if (medidas == null) {
+                    res.status(404).json({ msg: "No tiene datos clínicos registrados" });
+                }
+                else {
+                    res.status(200).json(medidas);
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
+    create(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            Datos_clinicos.findOne({ where: { user_id: req.body.user_id } })
+                .then((encontrada) => {
+                if (encontrada) {
+                    res.status(406).send({ msg: "Ya existen datos clínicos de este usuario" });
+                }
+                else {
+                    Datos_clinicos.create(req.body)
+                        .then((datosclinicos) => {
+                        res.status(200).send(datosclinicos);
+                    }).catch((err) => {
+                        res.status(500).json(err);
+                    });
+                }
+            })
+                .catch((err) => {
+                res.status(500).send(err);
+            });
+        });
+    }
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            Datos_clinicos.update(req.body, { where: { user_id: req.params.id } })
+                .then((datosclinicos) => {
+                if (datosclinicos) {
+                    Datos_clinicos.findOne({ where: { user_id: req.params.id } })
+                        .then((actualizado) => {
+                        if (actualizado) {
+                            res.status(200).send(actualizado);
+                        }
+                        else {
+                            res.status(404).send({ msg: "No tiene datos clínicos para actualizar" });
+                        }
+                    })
+                        .catch((err) => {
+                        res.status(500).json(err);
+                    });
+                }
+                else {
+                    res.status(404).send({ msg: "No tiene datos clínicos para actualizar" });
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
+    remove(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            Datos_clinicos.destroy({ where: { id: req.params.id }, force: true })
+                .then((resul) => {
+                if (resul == 0) {
+                    res.status(404).json({ msg: "No existe los datos clínicos que buscas" });
+                }
+                else {
+                    res.status(200).json({ msg: "Eliminado correctamente" });
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
 }
 exports.datos_clinicosController = new Datos_ClinicosController();
