@@ -13,6 +13,9 @@ class Cheques_regaloRoutes {
     config() {
         this.router.get('/', cheques_regaloController_1.chequesRegaloController.index);
         this.router.get('/findAll', cheques_regaloController_1.chequesRegaloController.findAll);
+        this.router.put('/:id', cheques_regaloController_1.chequesRegaloController.update);
+        this.router.delete('/:id', cheques_regaloController_1.chequesRegaloController.remove);
+        this.router.post('/create', cheques_regaloController_1.chequesRegaloController.create);
     }
 }
 const cheques_regaloRoutes = new Cheques_regaloRoutes();

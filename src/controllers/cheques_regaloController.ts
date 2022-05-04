@@ -39,39 +39,59 @@ class ChequesRegaloController{
             res.status(500).json(err)
         }) 
     }
+    
+
+ 
+    //Create
+    async create(req:Request,res:Response){
+        Cheques_regalo.create(req.body)
+            .then((medida:any)=>{
+                res.status(200).send(medida)   
+            })
+            .catch((err:any)=>{
+                res.status(500).send(err)
+            })
+    }
 
 
-    // //Show
-    // async show(req:Request|any, res:Response){
-    //     try{
-    //        res.json(req.post)
-    //     }catch(error:any){
-    //         res.status(500).json(error)
-    //     }
-       
-    // }
-    // //Update
-    // async update(req:Request|any,res:Response){
-    //     try{
-    //         req.post.title = req.body.title;
-    //         req.post.body = req.body.body;
-    //         req.post.save().then((post:any) => {
-    //             res.status(200).json(post)
-    //         })
-    //     }catch(error){
-    //         res.status(500).json(error)
-    //     }
-    // }
-    // //Delete
-    // async delete(req:Request|any,res:Response){
-    //    try{
-    //         req.post.destroy().then((post:any)=>{
-    //             res.status(200).json({post,msg:"El post ha sido eliminado"})
-    //         })
-    //     }catch(error){
-    //         res.status(500).json(error)
-    //     }
-    // }
+    //Update
+    async update(req:Request,res:Response){
+        Cheques_regalo.update(req.body,{where:{id:req.params.id}})
+        .then((cheque:any)=>{
+            if(cheque){
+                Cheques_regalo.findOne({where:{id:req.params.id}})
+                .then((actualizado:any)=>{
+                    if(actualizado){
+                        res.status(200).send(actualizado)
+                    }else{
+                        res.status(404).send({msg:"No existe el cheque regalo para actualizar"}) 
+                    }
+                })
+                .catch((err:any)=>{
+                    res.status(500).json(err)
+                })
+            }else{
+                res.status(404).send({msg:"No existe el cheque regalo para actualizar"})
+            }
+
+        }).catch((err:any)=>{
+            res.status(500).json(err)
+        }) 
+    }
+
+    //Delete
+    async remove(req:Request,res:Response){
+        Cheques_regalo.destroy({where:{id:req.params.id},force: true})
+        .then((resul:any)=>{
+            if(resul == 0){
+                res.status(404).json({msg:"No existe el cheque regalo que buscas"})
+            }else{
+                res.status(200).json({msg:"Eliminado correctamente"})
+            }
+        }).catch((err:Error)=>{
+            res.status(500).json(err)
+        })
+    }
     
 }
 export const chequesRegaloController = new ChequesRegaloController();
