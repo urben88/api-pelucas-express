@@ -34,6 +34,7 @@ const datos_clinicosRoutes_1 = __importDefault(require("./routes/datos_clinicosR
 const medidasRoutes_1 = __importDefault(require("./routes/medidasRoutes"));
 const notificacionesRoutes_1 = __importDefault(require("./routes/notificacionesRoutes"));
 const centrosRoutes_1 = __importDefault(require("./routes/centrosRoutes"));
+const cheques_regaloRoutes_1 = __importDefault(require("./routes/cheques_regaloRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -65,6 +66,7 @@ class Server {
         this.app.use("/api/medidas", auth_1.default, medidasRoutes_1.default);
         this.app.use("/api/notificaciones", auth_1.default, notificacionesRoutes_1.default);
         this.app.use("/api/centros", centrosRoutes_1.default);
+        this.app.use("/api/cheques_regalo", cheques_regaloRoutes_1.default);
     }
     //? Ejecutar el servidor
     start() {

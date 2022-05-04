@@ -70,7 +70,13 @@ class NotificacionesController{
 
         Notificaciones.create(req.body)
         .then((resul:any)=>{
-            res.status(200).json(resul)
+            Notificaciones.findOne({where:{id:resul.id}})
+            .then((noti:any)=>{
+                res.status(200).json(noti)
+            })
+            .catch((err:any)=>{
+                res.status(500).json(err)
+            })
         })
         .catch((err:Error)=>{
             res.status(500).json(err)

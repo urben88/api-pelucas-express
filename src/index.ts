@@ -26,6 +26,7 @@ import auth from './middlewares/auth'
    import medidasRoutes from './routes/medidasRoutes';
    import notificacionesRoutes from './routes/notificacionesRoutes';
    import centrosRoutes from './routes/centrosRoutes';
+   import cheques_regalosRoutes from './routes/cheques_regaloRoutes';
 
 class Server{
     //Variables
@@ -64,6 +65,7 @@ class Server{
         this.app.use("/api/medidas",auth,medidasRoutes)
         this.app.use("/api/notificaciones",auth,notificacionesRoutes)
         this.app.use("/api/centros",centrosRoutes)
+        this.app.use("/api/cheques_regalo",cheques_regalosRoutes)
     }
 
     //? Ejecutar el servidor

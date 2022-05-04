@@ -89,7 +89,13 @@ class NotificacionesController {
         return __awaiter(this, void 0, void 0, function* () {
             Notificaciones.create(req.body)
                 .then((resul) => {
-                res.status(200).json(resul);
+                Notificaciones.findOne({ where: { id: resul.id } })
+                    .then((noti) => {
+                    res.status(200).json(noti);
+                })
+                    .catch((err) => {
+                    res.status(500).json(err);
+                });
             })
                 .catch((err) => {
                 res.status(500).json(err);
