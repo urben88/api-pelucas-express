@@ -27,6 +27,10 @@ import auth from './middlewares/auth'
    import notificacionesRoutes from './routes/notificacionesRoutes';
    import centrosRoutes from './routes/centrosRoutes';
    import cheques_regalosRoutes from './routes/cheques_regaloRoutes';
+   import cabellosRoutes from './routes/cabellosRoutes';
+   import protesisRoutes from './routes/protesisRoutes';
+   import solicitudesRoutes from './routes/solicitudesRoutes';
+   import textilesRoutes from './routes/textilesRoutes';
 
 class Server{
     //Variables
@@ -65,8 +69,12 @@ class Server{
         this.app.use("/api/datos_clinicos",auth,datos_clinicosRoutes)
         this.app.use("/api/medidas",auth,medidasRoutes)
         this.app.use("/api/notificaciones",auth,notificacionesRoutes)
-        this.app.use("/api/centros",centrosRoutes)
-        this.app.use("/api/cheques_regalo",cheques_regalosRoutes)
+        this.app.use("/api/centros",auth,centrosRoutes)
+        this.app.use("/api/cheques_regalo",auth,cheques_regalosRoutes)
+        this.app.use("/api/cabellos",auth,cabellosRoutes)
+        this.app.use("/api/protesis",auth,protesisRoutes)
+        this.app.use("/api/solicitudes",auth,solicitudesRoutes)
+        this.app.use("/api/textiles",auth,textilesRoutes)
     }
 
     //? Ejecutar el servidor

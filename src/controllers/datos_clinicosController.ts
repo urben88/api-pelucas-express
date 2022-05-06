@@ -32,6 +32,20 @@ class Datos_ClinicosController{
         })
     
     }
+    async actualHave(req:Request,res:Response){
+        let user:any = req.user;
+        Datos_clinicos.findOne({where:{user_id:user.id}})
+        .then((datos_clinicos:UserI)=>{
+            if(datos_clinicos == null){
+                res.status(200).json(false)
+            }else{
+                res.status(200).json(true);
+            }
+        }).catch((err:any)=>{
+            res.status(500).json(err)
+        })
+    
+    }
     async findUserDatosClinicos(req:Request,res:Response){
         Datos_clinicos.findOne({where:{user_id:req.params.id}})
         .then((medidas:DatosClinicosI)=>{

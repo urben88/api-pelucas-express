@@ -17,6 +17,7 @@ class Datos_ClinicosRoutes{
         this.router.post('/create',medidasController.create)
         this.router.put('/:id',medidasController.update)
         this.router.delete('/:id',medidasController.remove)
+        this.router.get('/actualHave',medidasController.actualHave)
 
     }
 }

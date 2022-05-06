@@ -17,6 +17,7 @@ class Datos_ClinicosRoutes {
         this.router.post('/create', medidasController_1.medidasController.create);
         this.router.put('/:id', medidasController_1.medidasController.update);
         this.router.delete('/:id', medidasController_1.medidasController.remove);
+        this.router.get('/actualHave', medidasController_1.medidasController.actualHave);
     }
 }
 const medidasRoutes = new Datos_ClinicosRoutes();

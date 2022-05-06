@@ -34,6 +34,10 @@ const medidasRoutes_1 = __importDefault(require("./routes/medidasRoutes"));
 const notificacionesRoutes_1 = __importDefault(require("./routes/notificacionesRoutes"));
 const centrosRoutes_1 = __importDefault(require("./routes/centrosRoutes"));
 const cheques_regaloRoutes_1 = __importDefault(require("./routes/cheques_regaloRoutes"));
+const cabellosRoutes_1 = __importDefault(require("./routes/cabellosRoutes"));
+const protesisRoutes_1 = __importDefault(require("./routes/protesisRoutes"));
+const solicitudesRoutes_1 = __importDefault(require("./routes/solicitudesRoutes"));
+const textilesRoutes_1 = __importDefault(require("./routes/textilesRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -64,8 +68,12 @@ class Server {
         this.app.use("/api/datos_clinicos", auth_1.default, datos_clinicosRoutes_1.default);
         this.app.use("/api/medidas", auth_1.default, medidasRoutes_1.default);
         this.app.use("/api/notificaciones", auth_1.default, notificacionesRoutes_1.default);
-        this.app.use("/api/centros", centrosRoutes_1.default);
-        this.app.use("/api/cheques_regalo", cheques_regaloRoutes_1.default);
+        this.app.use("/api/centros", auth_1.default, centrosRoutes_1.default);
+        this.app.use("/api/cheques_regalo", auth_1.default, cheques_regaloRoutes_1.default);
+        this.app.use("/api/cabellos", auth_1.default, cabellosRoutes_1.default);
+        this.app.use("/api/protesis", auth_1.default, protesisRoutes_1.default);
+        this.app.use("/api/solicitudes", auth_1.default, solicitudesRoutes_1.default);
+        this.app.use("/api/textiles", auth_1.default, textilesRoutes_1.default);
     }
     //? Ejecutar el servidor
     start() {

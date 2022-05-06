@@ -42,6 +42,22 @@ class Datos_ClinicosController {
             });
         });
     }
+    actualHave(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let user = req.user;
+            Datos_clinicos.findOne({ where: { user_id: user.id } })
+                .then((datos_clinicos) => {
+                if (datos_clinicos == null) {
+                    res.status(200).json(false);
+                }
+                else {
+                    res.status(200).json(true);
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
     findUserDatosClinicos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             Datos_clinicos.findOne({ where: { user_id: req.params.id } })
