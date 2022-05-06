@@ -1,4 +1,4 @@
-import express ,{ Application } from "express"; 
+import express ,{ Application } from "express";
 
 //? Estos son middlewares para express
 import cors from 'cors';
@@ -46,11 +46,12 @@ class Server{
         //Sirve para comunicar el frontend con el backend
         this.app.use(cors());
         //Sirve para que el servidor puede leer objetos json en las peticiones
-        this.app.use(express.json());
+        this.app.use(express.json({limit: '50mb'}));
         //Sirve para enviar desde un formulario html
-        this.app.use(express.urlencoded({limit: '100mb',extended:false}))
-        //Esto me ayuda a controlar el peso del body (Para subir imagenes).
-        this.app.use(bodyParser.json({limit:'100mb'}))
+        this.app.use(express.urlencoded({limit: '50mb',extended:true}))
+        //El limit esto me ayuda a controlar el peso del body (Para subir imagenes).
+        
+        // this.app.use(bodyParser.json({limit:'100mb'}))
 
     }
 
@@ -81,8 +82,8 @@ class Server{
         sequelize.authenticate().then(()=>{
             console.log('Nos conectamos a la db!!')
         })
-        //? Sincronizo los modelos con la base de datos 
-        // await sequelize.sync({force:false}) 
+        //? Sincronizo los modelos con la base de datos
+        // await sequelize.sync({force:false})
     }
 
 }
