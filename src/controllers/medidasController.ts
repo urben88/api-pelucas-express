@@ -27,6 +27,19 @@ class MedidasController{
             res.status(500).json(err)
         }) 
     }
+    async actualHave(req:Request,res:Response){
+        let user:any = req.user;
+        Medidas.findOne({where:{user_id:user.id}})
+        .then((medidas:UserI)=>{
+            if(medidas == null){
+                res.status(200).json(false)
+            }else{
+                res.status(200).json(true);
+            }
+        }).catch((err:any)=>{
+            res.status(500).json(err)
+        }) 
+    }
     async findUserMedidas(req:Request,res:Response){
         Medidas.findOne({where:{user_id:req.params.id}})
         .then((medidas:MedidasI)=>{

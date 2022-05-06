@@ -18,6 +18,7 @@ module.exports =  (sequelize, DataTypes) => {
        User.hasOne(models.Datos_clinicos,{as:"datos_clinicos",foreignKey:"user_id"})
        User.hasOne(models.Medidas,{as:"medidas",foreignKey:"user_id"})
        User.hasMany(models.Notificaciones,{as:"notificaciones",foreignKey:"user_id"})
+       User.hasOne(models.Solicitudes,{as:"solicitud",foreignKey:"user_id"})
       }
   }
   User.init({

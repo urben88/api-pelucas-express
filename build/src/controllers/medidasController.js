@@ -38,6 +38,22 @@ class MedidasController {
             });
         });
     }
+    actualHave(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let user = req.user;
+            Medidas.findOne({ where: { user_id: user.id } })
+                .then((medidas) => {
+                if (medidas == null) {
+                    res.status(200).json(false);
+                }
+                else {
+                    res.status(200).json(true);
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
     findUserMedidas(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             Medidas.findOne({ where: { user_id: req.params.id } })

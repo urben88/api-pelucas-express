@@ -1,4 +1,4 @@
-import express ,{ Application } from "express"; 
+import express ,{ Application } from "express";
 
 //? Estos son middlewares para express
 import cors from 'cors';
@@ -27,6 +27,10 @@ import auth from './middlewares/auth'
    import notificacionesRoutes from './routes/notificacionesRoutes';
    import centrosRoutes from './routes/centrosRoutes';
    import cheques_regalosRoutes from './routes/cheques_regaloRoutes';
+   import cabellosRoutes from './routes/cabellosRoutes';
+   import protesisRoutes from './routes/protesisRoutes';
+   import solicitudesRoutes from './routes/solicitudesRoutes';
+   import textilesRoutes from './routes/textilesRoutes';
 
 class Server{
     //Variables
@@ -46,11 +50,12 @@ class Server{
         //Sirve para comunicar el frontend con el backend
         this.app.use(cors());
         //Sirve para que el servidor puede leer objetos json en las peticiones
-        this.app.use(express.json());
+        this.app.use(express.json({limit: '50mb'}));
         //Sirve para enviar desde un formulario html
-        this.app.use(express.urlencoded({limit: '100mb',extended:false}))
-        //Esto me ayuda a controlar el peso del body (Para subir imagenes).
-        this.app.use(bodyParser.json({limit:'100mb'}))
+        this.app.use(express.urlencoded({limit: '50mb',extended:true}))
+        //El limit esto me ayuda a controlar el peso del body (Para subir imagenes).
+        
+        // this.app.use(bodyParser.json({limit:'100mb'}))
 
     }
 
@@ -64,8 +69,12 @@ class Server{
         this.app.use("/api/datos_clinicos",auth,datos_clinicosRoutes)
         this.app.use("/api/medidas",auth,medidasRoutes)
         this.app.use("/api/notificaciones",auth,notificacionesRoutes)
-        this.app.use("/api/centros",centrosRoutes)
-        this.app.use("/api/cheques_regalo",cheques_regalosRoutes)
+        this.app.use("/api/centros",auth,centrosRoutes)
+        this.app.use("/api/cheques_regalo",auth,cheques_regalosRoutes)
+        this.app.use("/api/cabellos",auth,cabellosRoutes)
+        this.app.use("/api/protesis",auth,protesisRoutes)
+        this.app.use("/api/solicitudes",auth,solicitudesRoutes)
+        this.app.use("/api/textiles",auth,textilesRoutes)
     }
 
     //? Ejecutar el servidor
@@ -81,8 +90,8 @@ class Server{
         sequelize.authenticate().then(()=>{
             console.log('Nos conectamos a la db!!')
         })
-        //? Sincronizo los modelos con la base de datos 
-        // await sequelize.sync({force:false}) 
+        //? Sincronizo los modelos con la base de datos
+        // await sequelize.sync({force:false})
     }
 
 }
