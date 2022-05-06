@@ -41,34 +41,6 @@ module.exports = {
         onDelete: "NO ACTION",
         onUpdate: "CASCADE"
       },
-      //? Productos
-      protesisId:{
-        type: Sequelize.INTEGER,
-        references: {
-          model: "protesis",
-          key:"id"
-        },
-        onDelete: "NO ACTION",
-        onUpdate: "CASCADE"
-      },
-      cabellosId:{
-        type: Sequelize.INTEGER,
-        references: {
-          model: "cabellos",
-          key:"id"
-        },
-        onDelete: "NO ACTION",
-        onUpdate: "CASCADE"
-      },
-      textilesId:{
-        type: Sequelize.INTEGER,
-        references: {
-          model: "textiles",
-          key:"id"
-        },
-        onDelete: "NO ACTION",
-        onUpdate: "CASCADE"
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

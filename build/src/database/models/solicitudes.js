@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
             Solicitudes.belongsTo(models.Cheques_regalo, { foreignKey: "cheques_regaloId" });
             Solicitudes.belongsTo(models.Centros, { foreignKey: "centrosId" });
             //? Productos
-            Solicitudes.belongsTo(models.Protesis, { foreignKey: "protesisId" });
-            Solicitudes.belongsTo(models.Cabellos, { foreignKey: "cabellosId" });
-            Solicitudes.belongsTo(models.Textiles, { foreignKey: "textilesId" });
+            Solicitudes.hasOne(models.Protesis, { as: "protesis" });
+            Solicitudes.hasOne(models.Cabellos, { as: "cabello" });
+            Solicitudes.hasOne(models.Textiles, { as: "textil" });
         }
     }
     Solicitudes.init({

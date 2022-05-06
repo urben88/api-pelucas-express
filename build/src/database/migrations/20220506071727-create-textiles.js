@@ -22,6 +22,15 @@ module.exports = {
                     type: Sequelize.STRING,
                     allowNull: false,
                 },
+                solicitudId: {
+                    type: Sequelize.INTEGER,
+                    references: {
+                        model: "solicitudes",
+                        key: "id"
+                    },
+                    onDelete: "NO ACTION",
+                    onUpdate: "CASCADE"
+                },
                 createdAt: {
                     allowNull: false,
                     type: Sequelize.DATE,
