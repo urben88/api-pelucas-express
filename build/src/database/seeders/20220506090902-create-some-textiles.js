@@ -20,6 +20,12 @@ module.exports = {
              *   isBetaMember: false
              * }], {});
             */
+            yield queryInterface.bulkInsert('textiles', [
+                {
+                    color: "amarillo",
+                    solicitudId: 1
+                },
+            ], {});
         });
     },
     down(queryInterface, Sequelize) {

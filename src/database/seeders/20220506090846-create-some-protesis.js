@@ -11,6 +11,14 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+   await queryInterface.bulkInsert('protesis',[
+     { 
+       forma:"liso",
+       color:"rubio",
+       longitud:"medio",
+       solicitudId:1
+     },
+   ],{});
   },
 
   async down (queryInterface, Sequelize) {

@@ -8,13 +8,13 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            Protesis.belongsTo(models.Notificaciones, { as: "solicitud", foreignKey: "solicitudId" });
+            Protesis.belongsTo(models.Solicitudes, { foreignKey: "solicitudId" });
         }
     }
     Protesis.init({
         forma: DataTypes.STRING,
         color: DataTypes.STRING,
-        longitud: DataTypes.INTEGER
+        longitud: DataTypes.STRING
     }, {
         sequelize,
         modelName: 'Protesis',

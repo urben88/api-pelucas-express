@@ -20,6 +20,14 @@ module.exports = {
              *   isBetaMember: false
              * }], {});
             */
+            yield queryInterface.bulkInsert('cabellos', [
+                {
+                    forma: "rizado",
+                    color: "moreno",
+                    longitud: "medio",
+                    solicitudId: 1
+                },
+            ], {});
         });
     },
     down(queryInterface, Sequelize) {

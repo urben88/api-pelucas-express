@@ -27,7 +27,7 @@ module.exports = {
                     allowNull: false,
                 },
                 longitud: {
-                    type: Sequelize.INTEGER,
+                    type: Sequelize.STRING,
                     allowNull: false,
                 },
                 solicitudId: {

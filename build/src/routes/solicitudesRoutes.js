@@ -12,7 +12,9 @@ class SolicitudesRoutes {
     }
     config() {
         this.router.get('/', solicitudesController_1.solicitudesController.index);
-        // this.router.get('/findAll',chequesRegaloController.findAll)
+        this.router.get('/findAll', solicitudesController_1.solicitudesController.findAll);
+        this.router.get('/findAllSimple', solicitudesController_1.solicitudesController.findAllSimple);
+        this.router.get('/findOneByUser/:id', solicitudesController_1.solicitudesController.findOneByUser);
         // this.router.put('/:id',chequesRegaloController.update)
         // this.router.delete('/:id',chequesRegaloController.remove)
         // this.router.post('/create',chequesRegaloController.create)

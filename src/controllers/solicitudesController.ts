@@ -13,7 +13,7 @@ import authConfig from '../../config/auth'
 import { Error } from '../interfaces/error';
 import { UserI } from '../interfaces/User';
 
-const {Solicitudes} = require('../database/models/index');
+const {Solicitudes,Cabellos,Protesis,Cheques_regalo,Textiles} = require('../database/models/index');
 //Todo Tipos de status a usar
     //? 200 OK 201 Se ha creado
     //? 404 No se encontro 401 No tienes acceso
@@ -27,18 +27,58 @@ class SolicitudesController{
             text:"Estas en solicitudes",
         });
     }
-    // async findAll(req:Request,res:Response){
-    //     Cheques_regalo.findAll()
-    //     .then((cheques:any)=>{
-    //         if(cheques == null){
-    //             res.status(404).json({msg:"No exiten cheques"})
-    //         }else{
-    //             res.status(200).json(cheques);
-    //         }
-    //     }).catch((err:any)=>{
-    //         res.status(500).json(err)
-    //     }) 
-    // }
+
+    async findAll(req:Request,res:Response){
+        Solicitudes.findAll({include:[
+            {model:Cabellos,as:"cabello"},
+            {model:Protesis,as:"protesis"},
+            {model:Textiles,as:"textil"},
+            {model:Cheques_regalo,as:"cheque_regalo"},
+        ]})
+        .then((solicitudes:any)=>{
+            if(solicitudes == null){
+                res.status(404).json({msg:"No exiten solicitudes"})
+            }else{
+                res.status(200).json(solicitudes);
+            }
+        }).catch((err:any)=>{
+            res.status(500).json(err)
+        }) 
+    }
+    async findAllSimple(req:Request,res:Response){
+        Solicitudes.findAll()
+        .then((solicitudes:any)=>{
+            if(solicitudes == null){
+                res.status(404).json({msg:"No exiten solicitudes"})
+            }else{
+                res.status(200).json(solicitudes);
+            }
+        }).catch((err:any)=>{
+            res.status(500).json(err)
+        }) 
+    }
+    async findOneByUser(req:Request,res:Response){
+        Solicitudes.findOne(
+
+            {where:{user_id:req.params.id}},
+
+            {include:[
+            {model:Cabellos,as:"cabello"},
+            {model:Protesis,as:"protesis"},
+            {model:Textiles,as:"textil"},
+            {model:Cheques_regalo,as:"cheque_regalo"},
+        
+        ]})
+        .then((solicitud:any)=>{
+            if(solicitud == null){
+                res.status(404).json({msg:"No tiene ninguna solicitud"})
+            }else{
+                res.status(200).json(solicitud);
+            }
+        }).catch((err:any)=>{
+            res.status(500).json(err)
+        }) 
+    }
     
 
  

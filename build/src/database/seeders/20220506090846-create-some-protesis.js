@@ -20,6 +20,14 @@ module.exports = {
              *   isBetaMember: false
              * }], {});
             */
+            yield queryInterface.bulkInsert('protesis', [
+                {
+                    forma: "liso",
+                    color: "rubio",
+                    longitud: "medio",
+                    solicitudId: 1
+                },
+            ], {});
         });
     },
     down(queryInterface, Sequelize) {

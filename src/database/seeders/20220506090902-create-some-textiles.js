@@ -11,6 +11,12 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+     await queryInterface.bulkInsert('textiles',[
+      { 
+        color:"amarillo",
+        solicitudId:1
+      },
+    ],{});
   },
 
   async down (queryInterface, Sequelize) {

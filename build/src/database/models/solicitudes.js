@@ -8,13 +8,13 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            Solicitudes.belongsTo(models.User, { onDelete: "CASCADE", onUpdate: "CASCADE", foreignKey: "userId" });
-            Solicitudes.belongsTo(models.Cheques_regalo, { foreignKey: "cheques_regaloId" });
+            Solicitudes.belongsTo(models.User, { foreignKey: "user_id" });
+            Solicitudes.belongsTo(models.Cheques_regalo, { foreignKey: "cheques_regaloId", as: "cheque_regalo" });
             Solicitudes.belongsTo(models.Centros, { foreignKey: "centrosId" });
             //? Productos
-            Solicitudes.hasOne(models.Protesis, { as: "protesis" });
-            Solicitudes.hasOne(models.Cabellos, { as: "cabello" });
-            Solicitudes.hasOne(models.Textiles, { as: "textil" });
+            Solicitudes.hasOne(models.Protesis, { foreignKey: "solicitudId", as: "protesis" });
+            Solicitudes.hasOne(models.Cabellos, { foreignKey: "solicitudId", as: "cabello" });
+            Solicitudes.hasOne(models.Textiles, { foreignKey: "solicitudId", as: "textil" });
         }
     }
     Solicitudes.init({

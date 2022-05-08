@@ -14,7 +14,7 @@ module.exports = {
       disponibilidad: {
         type: Sequelize.STRING
       },
-      userId:{
+      user_id:{
         type: Sequelize.INTEGER,
         references: {
           model: "users",

@@ -11,6 +11,14 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+     await queryInterface.bulkInsert('cabellos',[
+      { 
+        forma:"rizado",
+        color:"moreno",
+        longitud:"medio",
+        solicitudId:1
+      },
+    ],{});
   },
 
   async down (queryInterface, Sequelize) {

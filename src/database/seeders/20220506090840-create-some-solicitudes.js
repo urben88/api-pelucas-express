@@ -11,6 +11,13 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+      await queryInterface.bulkInsert('solicitudes', [{
+        aceptado: 0,
+        disponibilidad: 'mañanas',
+        user_id:1,
+        centrosId:1,
+        cheques_regaloId:1
+      }], {});
   },
 
   async down (queryInterface, Sequelize) {
