@@ -16,6 +16,7 @@ class Cheques_regaloRoutes {
         this.router.put('/:id', cheques_regaloController_1.chequesRegaloController.update);
         this.router.delete('/:id', cheques_regaloController_1.chequesRegaloController.remove);
         this.router.post('/create', cheques_regaloController_1.chequesRegaloController.create);
+        this.router.get('/findBy/:attr/:value', cheques_regaloController_1.chequesRegaloController.findBy);
     }
 }
 const cheques_regaloRoutes = new Cheques_regaloRoutes();

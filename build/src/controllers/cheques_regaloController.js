@@ -39,6 +39,25 @@ class ChequesRegaloController {
             });
         });
     }
+    findBy(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let attr = req.params.attr;
+            let value = req.params.value;
+            let json = {};
+            json[attr] = value;
+            Cheques_regalo.findAll({ where: json })
+                .then((cheques) => {
+                if (cheques == null) {
+                    res.status(404).json({ msg: "No exiten cheques" });
+                }
+                else {
+                    res.status(200).json(cheques);
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
     //Create
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

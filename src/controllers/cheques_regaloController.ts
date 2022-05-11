@@ -39,8 +39,23 @@ class ChequesRegaloController{
             res.status(500).json(err)
         }) 
     }
+    async findBy(req:Request,res:Response){
+        let attr = req.params.attr;
+        let value = req.params.value;
+        let json:any= {};
+        json[attr]=value;
+        Cheques_regalo.findAll({where:json})
+        .then((cheques:any)=>{
+            if(cheques == null){
+                res.status(404).json({msg:"No exiten cheques"})
+            }else{
+                res.status(200).json(cheques);
+            }
+        }).catch((err:any)=>{
+            res.status(500).json(err)
+        }) 
+    }
     
-
  
     //Create
     async create(req:Request,res:Response){
