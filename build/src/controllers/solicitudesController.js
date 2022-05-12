@@ -61,18 +61,123 @@ class SolicitudesController {
     }
     findOneByUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            Solicitudes.findOne({ where: { user_id: req.params.id } }, { include: [
+            Solicitudes.findOne({
+                where: { user_id: req.params.id },
+                include: [
                     { model: Cabellos, as: "cabello" },
                     { model: Protesis, as: "protesis" },
                     { model: Textiles, as: "textil" },
                     { model: Cheques_regalo, as: "cheque_regalo" },
-                ] })
+                ]
+            })
                 .then((solicitud) => {
                 if (solicitud == null) {
                     res.status(404).json({ msg: "No tiene ninguna solicitud" });
                 }
                 else {
                     res.status(200).json(solicitud);
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
+    findOne(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            Solicitudes.findOne({
+                where: { id: req.params.id },
+                include: [
+                    { model: Cabellos, as: "cabello" },
+                    { model: Protesis, as: "protesis" },
+                    { model: Textiles, as: "textil" },
+                    { model: Cheques_regalo, as: "cheque_regalo" },
+                ]
+            })
+                .then((solicitud) => {
+                if (solicitud == null) {
+                    res.status(404).json({ msg: "No existe la solicitud" });
+                }
+                else {
+                    res.status(200).json(solicitud);
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
+    userHave(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            Solicitudes.findOne({ where: { user_id: req.params.id } })
+                .then((solicitud) => {
+                if (solicitud == null) {
+                    res.status(200).json({ have: false });
+                }
+                else {
+                    res.status(200).json({ have: true });
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
+    //Create
+    create(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            //?Para controlar que solo puede hacer una única solicitud
+            Solicitudes.findOne({ where: { user_id: req.body.user_id } })
+                .then((solicitud) => {
+                if (solicitud) {
+                    res.status(405).send({ msg: "No puedes crear mas de una solicitud" });
+                }
+                else {
+                    Solicitudes.create(req.body, { include: ['protesis', 'cabello', 'textil'] })
+                        .then((solicitud) => {
+                        res.status(200).send(solicitud);
+                    })
+                        .catch((err) => {
+                        res.status(500).send(err);
+                    });
+                }
+            });
+        });
+    }
+    //Update
+    update(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            Solicitudes.update(req.body, {
+                where: { user_id: req.params.id },
+                include: [
+                    { model: Cabellos, as: "cabello" },
+                    { model: Protesis, as: "protesis" },
+                    { model: Textiles, as: "textil" },
+                    { model: Cheques_regalo, as: "cheque_regalo" },
+                ]
+            })
+                .then((cheque) => {
+                if (cheque) {
+                    Solicitudes.findOne({
+                        where: { user_id: req.params.id },
+                        include: [
+                            { model: Cabellos, as: "cabello" },
+                            { model: Protesis, as: "protesis" },
+                            { model: Textiles, as: "textil" },
+                            { model: Cheques_regalo, as: "cheque_regalo" },
+                        ]
+                    })
+                        .then((actualizado) => {
+                        if (actualizado) {
+                            res.status(200).send(actualizado);
+                        }
+                        else {
+                            res.status(404).send({ msg: "No existe la solicitud para actualizar" });
+                        }
+                    })
+                        .catch((err) => {
+                        res.status(500).json(err);
+                    });
+                }
+                else {
+                    res.status(404).send({ msg: "No existe una solicitud para actualizar" });
                 }
             }).catch((err) => {
                 res.status(500).json(err);

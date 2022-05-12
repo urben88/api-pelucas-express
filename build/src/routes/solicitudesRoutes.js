@@ -15,6 +15,10 @@ class SolicitudesRoutes {
         this.router.get('/findAll', solicitudesController_1.solicitudesController.findAll);
         this.router.get('/findAllSimple', solicitudesController_1.solicitudesController.findAllSimple);
         this.router.get('/findOneByUser/:id', solicitudesController_1.solicitudesController.findOneByUser);
+        this.router.post('/create', solicitudesController_1.solicitudesController.create);
+        this.router.get('/userHave/:id', solicitudesController_1.solicitudesController.userHave);
+        this.router.get('/findOne/:id', solicitudesController_1.solicitudesController.findOne);
+        this.router.put('/update/:id', solicitudesController_1.solicitudesController.update);
         // this.router.put('/:id',chequesRegaloController.update)
         // this.router.delete('/:id',chequesRegaloController.remove)
         // this.router.post('/create',chequesRegaloController.create)

@@ -18,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
         }
     }
     Solicitudes.init({
-        aceptado: DataTypes.BOOLEAN
+        aceptado: DataTypes.BOOLEAN,
+        disponibilidad: DataTypes.STRING
     }, {
         sequelize,
         modelName: 'Solicitudes',

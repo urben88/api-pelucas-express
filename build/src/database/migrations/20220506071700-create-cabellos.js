@@ -36,7 +36,7 @@ module.exports = {
                         model: "solicitudes",
                         key: "id"
                     },
-                    onDelete: "NO ACTION",
+                    onDelete: "CASCADE",
                     onUpdate: "CASCADE"
                 },
                 createdAt: {
