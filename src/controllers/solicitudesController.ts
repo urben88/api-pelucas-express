@@ -184,19 +184,19 @@ class SolicitudesController{
         }) 
     }
 
-    // //Delete
-    // async remove(req:Request,res:Response){
-    //     Cheques_regalo.destroy({where:{id:req.params.id},force: true})
-    //     .then((resul:any)=>{
-    //         if(resul == 0){
-    //             res.status(404).json({msg:"No existe el cheque regalo que buscas"})
-    //         }else{
-    //             res.status(200).json({msg:"Eliminado correctamente"})
-    //         }
-    //     }).catch((err:Error)=>{
-    //         res.status(500).json(err)
-    //     })
-    // }
+    //Delete
+    async remove(req:Request,res:Response){
+        Solicitudes.destroy({where:{id:req.params.id},force: true})
+        .then((resul:any)=>{
+            if(resul == 0){
+                res.status(404).json({msg:"No existe la solicitud que buscas"})
+            }else{
+                res.status(200).json({msg:"Eliminado correctamente"})
+            }
+        }).catch((err:Error)=>{
+            res.status(500).json(err)
+        })
+    }
     
 }
 export const solicitudesController = new SolicitudesController();

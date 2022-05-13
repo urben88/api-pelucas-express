@@ -184,5 +184,21 @@ class SolicitudesController {
             });
         });
     }
+    //Delete
+    remove(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            Solicitudes.destroy({ where: { id: req.params.id }, force: true })
+                .then((resul) => {
+                if (resul == 0) {
+                    res.status(404).json({ msg: "No existe la solicitud que buscas" });
+                }
+                else {
+                    res.status(200).json({ msg: "Eliminado correctamente" });
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
 }
 exports.solicitudesController = new SolicitudesController();
