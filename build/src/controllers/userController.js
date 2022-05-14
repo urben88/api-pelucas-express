@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
 //?Modelos
-const { User, Role, User_role } = require('../database/models');
+const { User, Role, User_role, Datos_clinicos, Medidas } = require('../database/models');
 //Todo Tipos de status a usar
 //? 200 OK 201 Se ha creado
 //? 404 No se encontro 401 No tienes acceso
@@ -40,6 +40,27 @@ class UserController {
                 }
                 else {
                     res.status(200).json(user);
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
+    getStatusDatos(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield User.findOne({
+                where: { id: req.params.id },
+                include: [
+                    { model: Datos_clinicos, as: "datos_clinicos" },
+                    { model: Medidas, as: "medidas" },
+                ]
+            })
+                .then((user) => {
+                if (user == null) {
+                    res.status(404).json({ msg: "No existe el ususario con ese id" });
+                }
+                else {
+                    res.status(200).json({ datos_clinicos: user.datos_clinicos, medidas: user.medidas });
                 }
             }).catch((err) => {
                 res.status(500).json(err);

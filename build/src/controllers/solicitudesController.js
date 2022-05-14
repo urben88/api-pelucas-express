@@ -26,12 +26,14 @@ class SolicitudesController {
     }
     findAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            Solicitudes.findAll({ include: [
+            Solicitudes.findAll({
+                include: [
                     { model: Cabellos, as: "cabello" },
                     { model: Protesis, as: "protesis" },
                     { model: Textiles, as: "textil" },
                     { model: Cheques_regalo, as: "cheque_regalo" },
-                ] })
+                ]
+            })
                 .then((solicitudes) => {
                 if (solicitudes == null) {
                     res.status(404).json({ msg: "No exiten solicitudes" });
@@ -141,22 +143,39 @@ class SolicitudesController {
             });
         });
     }
+    //Update Status
+    updateStatus(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (req.body.aceptado) {
+                Solicitudes.update(req.body, { where: { id: req.params.id } }).then((status) => {
+                    res.status(200).json(status);
+                })
+                    .catch((err) => {
+                    res.status(500).json(err);
+                });
+            }
+            else {
+                res.status(401).json({ msg: "Solo puedes modificar el estado" });
+            }
+        });
+    }
     //Update
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            let userReqId = req.params.id;
             Solicitudes.update(req.body, {
-                where: { user_id: req.params.id },
+                where: { user_id: userReqId },
                 include: [
                     { model: Cabellos, as: "cabello" },
                     { model: Protesis, as: "protesis" },
                     { model: Textiles, as: "textil" },
-                    { model: Cheques_regalo, as: "cheque_regalo" },
                 ]
             })
-                .then((cheque) => {
-                if (cheque) {
+                .then((statusUpdated) => {
+                if (statusUpdated) {
+                    // res.status(200).json(cheque)
                     Solicitudes.findOne({
-                        where: { user_id: req.params.id },
+                        where: { user_id: userReqId },
                         include: [
                             { model: Cabellos, as: "cabello" },
                             { model: Protesis, as: "protesis" },
@@ -165,19 +184,192 @@ class SolicitudesController {
                         ]
                     })
                         .then((actualizado) => {
-                        if (actualizado) {
-                            res.status(200).send(actualizado);
+                        //! Cabello
+                        if (req.body.cabello) {
+                            //? Para saber si ya existia
+                            if (actualizado.cabello) {
+                                Cabellos.update(req.body.cabello[0], { where: { id: actualizado.cabello.id } }).then((res2) => {
+                                    if (res2) {
+                                        if (req.body.textil) {
+                                            if (actualizado.textil) {
+                                                //aqui
+                                                Textiles.update(req.body.textil[0], { where: { id: actualizado.textil.id } }).then((res3) => {
+                                                    if (res3) {
+                                                        Solicitudes.findOne({
+                                                            where: { user_id: userReqId },
+                                                            include: [
+                                                                { model: Cabellos, as: "cabello" },
+                                                                { model: Protesis, as: "protesis" },
+                                                                { model: Textiles, as: "textil" },
+                                                                { model: Cheques_regalo, as: "cheque_regalo" },
+                                                            ]
+                                                        }).then((res4) => { res.status(200).json(res4); }).catch((err) => res.status(500).json(err));
+                                                    }
+                                                    else {
+                                                        res.status(500).json({ msg: "Error al actualizar el pañuelo" });
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                Textiles.create(req.body.textil).then((res7) => {
+                                                    Solicitudes.findOne({
+                                                        where: { user_id: userReqId },
+                                                        include: [
+                                                            { model: Cabellos, as: "cabello" },
+                                                            { model: Protesis, as: "protesis" },
+                                                            { model: Textiles, as: "textil" },
+                                                            { model: Cheques_regalo, as: "cheque_regalo" },
+                                                        ]
+                                                    }).then((res4) => { res.status(200).json(res4); }).catch((err) => res.status(500).json(err));
+                                                });
+                                            }
+                                        }
+                                        else {
+                                            Textiles.destroy({ where: { id: actualizado.textil.id } }).then((res6) => {
+                                                Solicitudes.findOne({
+                                                    where: { user_id: userReqId },
+                                                    include: [
+                                                        { model: Cabellos, as: "cabello" },
+                                                        { model: Protesis, as: "protesis" },
+                                                        { model: Textiles, as: "textil" },
+                                                        { model: Cheques_regalo, as: "cheque_regalo" },
+                                                    ]
+                                                }).then((res4) => { res.status(200).json(res4); }).catch((err) => res.status(500).json(err));
+                                            });
+                                        }
+                                    }
+                                    else {
+                                        res.status(500).json({ msg: "Error al actualizar el cabello" });
+                                    }
+                                });
+                            }
+                            else {
+                                Cabellos.create(req.body.cabello).then((res2) => {
+                                    //Comporbar textil
+                                    if (res2) {
+                                        if (req.body.textil) {
+                                            if (actualizado.textil) {
+                                                //aqui
+                                                Textiles.update(req.body.textil[0], { where: { id: actualizado.textil.id } }).then((res3) => {
+                                                    if (res3) {
+                                                        Solicitudes.findOne({
+                                                            where: { user_id: userReqId },
+                                                            include: [
+                                                                { model: Cabellos, as: "cabello" },
+                                                                { model: Protesis, as: "protesis" },
+                                                                { model: Textiles, as: "textil" },
+                                                                { model: Cheques_regalo, as: "cheque_regalo" },
+                                                            ]
+                                                        }).then((res4) => { res.status(200).json(res4); }).catch((err) => res.status(500).json(err));
+                                                    }
+                                                    else {
+                                                        res.status(500).json({ msg: "Error al actualizar el pañuelo" });
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                Textiles.create(req.body.textil).then((res7) => {
+                                                    Solicitudes.findOne({
+                                                        where: { user_id: userReqId },
+                                                        include: [
+                                                            { model: Cabellos, as: "cabello" },
+                                                            { model: Protesis, as: "protesis" },
+                                                            { model: Textiles, as: "textil" },
+                                                            { model: Cheques_regalo, as: "cheque_regalo" },
+                                                        ]
+                                                    }).then((res4) => { res.status(200).json(res4); }).catch((err) => res.status(500).json(err));
+                                                });
+                                            }
+                                        }
+                                        else {
+                                            Textiles.destroy({ where: { id: actualizado.textil.id } }).then((res6) => {
+                                                Solicitudes.findOne({
+                                                    where: { user_id: userReqId },
+                                                    include: [
+                                                        { model: Cabellos, as: "cabello" },
+                                                        { model: Protesis, as: "protesis" },
+                                                        { model: Textiles, as: "textil" },
+                                                        { model: Cheques_regalo, as: "cheque_regalo" },
+                                                    ]
+                                                }).then((res4) => { res.status(200).json(res4); }).catch((err) => res.status(500).json(err));
+                                            });
+                                        }
+                                    }
+                                });
+                            }
                         }
                         else {
-                            res.status(404).send({ msg: "No existe la solicitud para actualizar" });
+                            Cabellos.destroy({ where: { id: actualizado.cabello.id } }).catch((err) => res.status(500).json(err));
                         }
+                        //!Protesis
+                        if (req.body.protesis) {
+                            Protesis.update(req.body.protesis[0], { where: { id: actualizado.protesis.id } }).then((res2) => {
+                                if (res2) {
+                                    if (req.body.textil) {
+                                        Textiles.update(req.body.textil[0], { where: { id: actualizado.textil.id } }).then((res3) => {
+                                            if (res3) {
+                                                Solicitudes.findOne({
+                                                    where: { user_id: userReqId },
+                                                    include: [
+                                                        { model: Cabellos, as: "cabello" },
+                                                        { model: Protesis, as: "protesis" },
+                                                        { model: Textiles, as: "textil" },
+                                                        { model: Cheques_regalo, as: "cheque_regalo" },
+                                                    ]
+                                                }).then((res4) => { res.status(200).json(res4); }).catch((err) => res.status(500).json(err));
+                                            }
+                                            else {
+                                                res.status(500).json({ msg: "Error al actualizar el pañuelo" });
+                                            }
+                                        }).catch((err) => res.status(500).json(err));
+                                    }
+                                    else {
+                                        Textiles.destroy({ where: { id: actualizado.textil.id } }).then((res6) => {
+                                            Solicitudes.findOne({
+                                                where: { user_id: userReqId },
+                                                include: [
+                                                    { model: Cabellos, as: "cabello" },
+                                                    { model: Protesis, as: "protesis" },
+                                                    { model: Textiles, as: "textil" },
+                                                    { model: Cheques_regalo, as: "cheque_regalo" },
+                                                ]
+                                            }).then((res4) => { res.status(200).json(res4); }).catch((err) => res.status(500).json(err));
+                                        }).catch((err) => res.status(500).json(err));
+                                    }
+                                }
+                                else {
+                                    res.status(500).json({ msg: "Error al actualizar la prótesis" });
+                                }
+                            });
+                        }
+                        else {
+                            Protesis.destroy({ where: { id: actualizado.protesis.id } }).catch((err) => res.status(500).json(err));
+                        }
+                        // if(actualizado){
+                        //     res.status(200).send(actualizado)
+                        // }else{
+                        //     res.status(404).send({msg:"No existe la solicitud para actualizar 2",actualizado,id:id}) 
+                        // }
                     })
                         .catch((err) => {
                         res.status(500).json(err);
                     });
+                    // // Solicitudes.findOne(
+                    // //         {
+                    // //             where:{user_id:userReqId},
+                    // //             include:[
+                    // //                 {model:Cabellos,as:"cabello"},
+                    // //                 {model:Protesis,as:"protesis"},
+                    // //                 {model:Textiles,as:"textil"},
+                    // //                 {model:Cheques_regalo,as:"cheque_regalo"},
+                    // //             ]
+                    // //         })
+                    // //     .then((actualizado:any)=>{
+                    // //         res.status(200).json(actualizado)
+                    // //     })
                 }
                 else {
-                    res.status(404).send({ msg: "No existe una solicitud para actualizar" });
+                    res.status(404).send({ msg: "No existe una solicitud para actualizar 1" });
                 }
             }).catch((err) => {
                 res.status(500).json(err);

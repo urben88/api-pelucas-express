@@ -3,7 +3,7 @@ import { Request, Response  } from "express";
 import { send } from "process";
 
 //?Modelos
-const {User,Role,User_role} = require('../database/models');
+const {User,Role,User_role,Datos_clinicos,Medidas} = require('../database/models');
 
 //?Interfaces
 import { Rol, UserI } from "../interfaces/User";
@@ -27,6 +27,7 @@ class UserController{
         })
     }
 
+
     async showOne(req:Request,res:Response){
         await User.findOne({where:{id:req.params.id},include:"rol"})
         .then((user:any)=>{
@@ -39,6 +40,24 @@ class UserController{
             res.status(500).json(err)
         })
     }
+    async getStatusDatos(req:Request,res:Response){
+        await User.findOne({
+            where:{id:req.params.id}, 
+            include: [
+            { model: Datos_clinicos, as: "datos_clinicos" },
+            { model: Medidas, as: "medidas" },
+        ]})
+        .then((user:any)=>{
+            if(user == null){
+                res.status(404).json({msg: "No existe el ususario con ese id"})
+            }else{
+                res.status(200).json({datos_clinicos:user.datos_clinicos,medidas:user.medidas})
+            }
+        }).catch((err:Error)=>{
+            res.status(500).json(err)
+        })
+    }
+
     async updateAdmin(req:Request,res:Response){
         let roles:Rol[] = [];
         if(req.body.rolesBuscar){

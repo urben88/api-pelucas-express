@@ -21,6 +21,7 @@ class SolicitudesRoutes{
         this.router.get('/findOne/:id',solicitudesController.findOne)
         this.router.put('/:id',solicitudesController.update)
         this.router.delete('/:id',solicitudesController.remove)
+        this.router.put('/updateStatus/:id',solicitudesController.updateStatus)
        
         // this.router.put('/:id',chequesRegaloController.update)
         // this.router.delete('/:id',chequesRegaloController.remove)

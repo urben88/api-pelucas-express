@@ -14,6 +14,7 @@ class UserRoutes{
         this.router.get('/:id',userController.showOne)
         this.router.delete('/:id',userController.delete)
         this.router.post('/updateAdmin',userController.updateAdmin)
+        this.router.get('/getStatusDatos/:id',userController.getStatusDatos)
     }
 }
 const userRoutes = new UserRoutes();
