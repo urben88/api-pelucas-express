@@ -144,7 +144,7 @@ class SolicitudesController {
 
     //Update Status
     async updateStatus(req: Request, res: Response) {
-        if(req.body.aceptado){
+        // if(req.body.aceptado){
             Solicitudes.update(req.body,{where:{id:req.params.id}}).then(
                 (status:any)=>{
                     res.status(200).json(status);
@@ -155,9 +155,9 @@ class SolicitudesController {
                     res.status(500).json(err)
                 }
             )
-        }else{
-            res.status(401).json({msg:"Solo puedes modificar el estado"})
-        }
+        // }else{
+        //     res.status(401).json({msg:"Solo puedes modificar el estado"})
+        // }
     }
 
     //Update

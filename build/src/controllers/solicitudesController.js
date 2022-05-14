@@ -146,17 +146,16 @@ class SolicitudesController {
     //Update Status
     updateStatus(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (req.body.aceptado) {
-                Solicitudes.update(req.body, { where: { id: req.params.id } }).then((status) => {
-                    res.status(200).json(status);
-                })
-                    .catch((err) => {
-                    res.status(500).json(err);
-                });
-            }
-            else {
-                res.status(401).json({ msg: "Solo puedes modificar el estado" });
-            }
+            // if(req.body.aceptado){
+            Solicitudes.update(req.body, { where: { id: req.params.id } }).then((status) => {
+                res.status(200).json(status);
+            })
+                .catch((err) => {
+                res.status(500).json(err);
+            });
+            // }else{
+            //     res.status(401).json({msg:"Solo puedes modificar el estado"})
+            // }
         });
     }
     //Update
