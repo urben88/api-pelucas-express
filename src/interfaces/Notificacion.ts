@@ -6,4 +6,5 @@ export interface Notificacion {
     createdAt?: Date;
     updatedAt?: Date;
     user_id:   number;
+    leido?:    boolean;
 }

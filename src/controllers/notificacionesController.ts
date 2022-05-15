@@ -54,6 +54,20 @@ class NotificacionesController{
             res.status(500).json(err)
         }) 
     }
+    async findUserNotificacionesNoLeidas(req:Request,res:Response){
+        let id = req.params.id
+        Notificaciones.findAll({where:{user_id:id,leido:false}})
+        .then((notificaciones:UserI)=>{
+            if(notificaciones == null){
+                res.status(404).json({msg:"No tiene notificaciones"})
+            }else{
+                res.status(200).json(notificaciones);
+            }
+        }).catch((err:any)=>{
+            res.status(500).json(err)
+        }) 
+    }
+
     async delete(req:Request,res:Response){
         Notificaciones.destroy({where:{id:req.params.id},force: true})
         .then((resul:any)=>{
@@ -101,6 +115,26 @@ class NotificacionesController{
     async update(req:Request,res:Response){
         
         Notificaciones.update(req.body,{where:{id:req.params.id}})
+        .then((resul:any)=>{
+            if(resul == null){
+                res.status(404).json({msg:"No se ha encontrado ninguna notificación con esa id"})
+            }else{
+                Notificaciones.findOne({where:{id:req.params.id}})
+                .then((noti:Notificacion)=>{
+                    res.status(200).json(noti)
+                })
+                .catch((err:Error)=>{
+                    res.status(500).json(err)
+                })
+            }
+        })
+        .catch((err:Error)=>{
+            res.status(500).json(err)
+        })
+
+    }
+    async putLeido(req:Request,res:Response){
+        Notificaciones.update({leido:true},{where:{id:req.params.id}})
         .then((resul:any)=>{
             if(resul == null){
                 res.status(404).json({msg:"No se ha encontrado ninguna notificación con esa id"})

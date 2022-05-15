@@ -30,6 +30,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT('long')
       },
+      leido:{
+        allowNull: true,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

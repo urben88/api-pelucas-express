@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Notificaciones.init({
     tipo: DataTypes.STRING,
     header: DataTypes.STRING,
+    leido: DataTypes.BOOLEAN,
     mensaje: DataTypes.TEXT('long'),
   }, {
     sequelize,

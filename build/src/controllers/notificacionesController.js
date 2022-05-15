@@ -70,6 +70,22 @@ class NotificacionesController {
             });
         });
     }
+    findUserNotificacionesNoLeidas(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let id = req.params.id;
+            Notificaciones.findAll({ where: { user_id: id, leido: false } })
+                .then((notificaciones) => {
+                if (notificaciones == null) {
+                    res.status(404).json({ msg: "No tiene notificaciones" });
+                }
+                else {
+                    res.status(200).json(notificaciones);
+                }
+            }).catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
     delete(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             Notificaciones.destroy({ where: { id: req.params.id }, force: true })
@@ -121,6 +137,28 @@ class NotificacionesController {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             Notificaciones.update(req.body, { where: { id: req.params.id } })
+                .then((resul) => {
+                if (resul == null) {
+                    res.status(404).json({ msg: "No se ha encontrado ninguna notificación con esa id" });
+                }
+                else {
+                    Notificaciones.findOne({ where: { id: req.params.id } })
+                        .then((noti) => {
+                        res.status(200).json(noti);
+                    })
+                        .catch((err) => {
+                        res.status(500).json(err);
+                    });
+                }
+            })
+                .catch((err) => {
+                res.status(500).json(err);
+            });
+        });
+    }
+    putLeido(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            Notificaciones.update({ leido: true }, { where: { id: req.params.id } })
                 .then((resul) => {
                 if (resul == null) {
                     res.status(404).json({ msg: "No se ha encontrado ninguna notificación con esa id" });
