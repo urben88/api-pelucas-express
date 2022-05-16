@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 //? Estos son middlewares para express
 const cors_1 = __importDefault(require("cors"));
 const morgan_1 = __importDefault(require("morgan"));
+var timeout = require('connect-timeout'); //express v4
 //?Importo las asociaciones
 // require('./database/asociations');
 require('dotenv').config();
@@ -50,13 +51,22 @@ class Server {
         //Sirve para ver mensajes en consola de las peticiones
         this.app.use((0, morgan_1.default)('dev'));
         //Sirve para comunicar el frontend con el backend
-        this.app.use((0, cors_1.default)());
+        this.app.use((0, cors_1.default)({
+            origin: [
+                'https://www.pelucassolidarias.tk',
+                'http://www.pelucassolidarias.tk',
+                'https://www.pelucassolidarias.tk:433',
+                'http://www.ec2-13-37-216-185.eu-west-3.compute.amazonaws.com',
+                'http://ec2-13-37-216-185.eu-west-3.compute.amazonaws.com:82',
+                'http://localhost:4200'
+            ]
+        }));
         //Sirve para que el servidor puede leer objetos json en las peticiones
         this.app.use(express_1.default.json({ limit: '50mb' }));
         //Sirve para enviar desde un formulario html
         this.app.use(express_1.default.urlencoded({ limit: '50mb', extended: true }));
-        //El limit esto me ayuda a controlar el peso del body (Para subir imagenes).
-        // this.app.use(bodyParser.json({limit:'100mb'}))
+        //Sirve para que espere mas tiempo en escucha para la base de datos.
+        this.app.use(timeout('120s'));
     }
     //?Las rutas del servidor
     routes() {

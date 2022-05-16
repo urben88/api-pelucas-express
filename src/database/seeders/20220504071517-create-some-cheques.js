@@ -11,7 +11,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-   await queryInterface.bulkInsert('Cheques_regalo',[
+   await queryInterface.bulkInsert('cheques_regalo',[
 
      //? Peluqueria
      {

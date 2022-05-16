@@ -2,8 +2,8 @@
 const {
   Model
 } = require('sequelize');
-import {DataTypes, Model } from 'sequelize';
-import { sequelize } from '.'; 
+// import {DataTypes, Model } from 'sequelize';
+// import { sequelize } from '.'; 
 
 module.exports =  (sequelize, DataTypes) => {
    class Post extends Model {

@@ -20,7 +20,7 @@ module.exports = {
              *   isBetaMember: false
              * }], {});
             */
-            yield queryInterface.bulkInsert('Cheques_regalo', [
+            yield queryInterface.bulkInsert('cheques_regalo', [
                 //? Peluqueria
                 {
                     servicio: "corte", tipo: "peluquería", descripcion: "Esta es una descripción default"

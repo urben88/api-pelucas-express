@@ -4,6 +4,7 @@ import express ,{ Application } from "express";
 import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+var timeout = require('connect-timeout'); //express v4
 
 //?Importo las asociaciones
 // require('./database/asociations');
@@ -48,14 +49,19 @@ class Server{
         //Sirve para ver mensajes en consola de las peticiones
         this.app.use(morgan('dev'));
         //Sirve para comunicar el frontend con el backend
-        this.app.use(cors());
+        this.app.use(cors({
+            origin:[
+                'https://www.pelucassolidarias.tk',
+                'http://www.pelucassolidarias.tk',
+                'http://localhost:4200'
+            ]
+        }));
         //Sirve para que el servidor puede leer objetos json en las peticiones
         this.app.use(express.json({limit: '50mb'}));
         //Sirve para enviar desde un formulario html
         this.app.use(express.urlencoded({limit: '50mb',extended:true}))
-        //El limit esto me ayuda a controlar el peso del body (Para subir imagenes).
-        
-        // this.app.use(bodyParser.json({limit:'100mb'}))
+        //Sirve para que espere mas tiempo en escucha para la base de datos.
+        this.app.use(timeout('120s'));
 
     }
 
