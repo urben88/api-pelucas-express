@@ -19,6 +19,7 @@ class AuthRoutes {
         this.router.get('/user', auth_1.default, authController_1.authController.getUser);
         this.router.get('/refresh', authController_1.authController.refreshToken),
             this.router.put('/update', auth_1.default, authController_1.authController.update);
+        this.router.get('/isAdmin', auth_1.default, authController_1.authController.isAdmin);
     }
 }
 const authRoutes = new AuthRoutes();

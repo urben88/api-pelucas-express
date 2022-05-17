@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 //? Importo el modelo user
-const {User} = require('../database/models'); //! Mirar si le puedo poner un type al ORM
+const {User} = require('../database/models/index') //! Mirar si le puedo poner un type al ORM
 const {Role} = require('../database/models');
 const {User_role} = require('../database/models');
 //? Configuración para el auth
@@ -13,6 +13,7 @@ import authConfig from '../../config/auth'
 //? Importo la interfazes creadas por mi
 import { Error } from '../interfaces/error';
 import { UserI} from '../interfaces/User';
+import user from '../database/models/user';
 //Todo Tipos de status a usar
     //? 200 OK 201 Se ha creado
     //? 404 No se encontro 401 No tienes acceso
@@ -143,6 +144,11 @@ class AuthController{
         const token = jwt.sign({user:userfind},authConfig.secret,{ expiresIn:authConfig.expires})
         res.status(200).json({token:token})
 
+    }
+
+    public async isAdmin(req:Request,res:Response){
+        // User.isAdmin(req.user)
+        res.status(200).json(req.user)
     }
 
     public async getUser(req:Request,res:Response){

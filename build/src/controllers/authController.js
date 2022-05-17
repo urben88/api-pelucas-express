@@ -17,7 +17,7 @@ exports.authController = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 //? Importo el modelo user
-const { User } = require('../database/models'); //! Mirar si le puedo poner un type al ORM
+const { User } = require('../database/models/index'); //! Mirar si le puedo poner un type al ORM
 const { Role } = require('../database/models');
 const { User_role } = require('../database/models');
 //? Configuración para el auth
@@ -154,6 +154,12 @@ class AuthController {
             }
             const token = jsonwebtoken_1.default.sign({ user: userfind }, auth_1.default.secret, { expiresIn: auth_1.default.expires });
             res.status(200).json({ token: token });
+        });
+    }
+    isAdmin(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // User.isAdmin(req.user)
+            res.status(200).json(req.user);
         });
     }
     getUser(req, res) {
