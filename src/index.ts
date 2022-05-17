@@ -17,6 +17,7 @@ const {sequelize} = require('./database/models');
 
 //todo Middleware para las rutas
 import auth from './middlewares/auth'
+import admin from './middlewares/auth'
 
 //todo Importo las Rutas
    import indexRoutes from './routes/indexRoutes';

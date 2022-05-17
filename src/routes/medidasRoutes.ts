@@ -3,6 +3,7 @@ import Router from "express";
 import { medidasController } from "../controllers/medidasController";
 //todo Middleware para las rutas
 import auth from '../middlewares/auth'
+import admin from '../middlewares/admin'
 class Datos_ClinicosRoutes{
     public router = Router();
 

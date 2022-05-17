@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const notificacionesController_1 = require("../controllers/notificacionesController");
+const admin_1 = __importDefault(require("../middlewares/admin"));
 class Datos_ClinicosRoutes {
     constructor() {
         this.router = (0, express_1.default)();
@@ -15,7 +16,7 @@ class Datos_ClinicosRoutes {
         this.router.get('/actual', notificacionesController_1.notificacionesController.actual);
         this.router.get('/findByUserId/:id', notificacionesController_1.notificacionesController.findUserNotificaciones);
         this.router.delete('/:id', notificacionesController_1.notificacionesController.delete);
-        this.router.post('/create', notificacionesController_1.notificacionesController.create);
+        this.router.post('/create', admin_1.default, notificacionesController_1.notificacionesController.create);
         this.router.get('/:id', notificacionesController_1.notificacionesController.showOne);
         this.router.put('/:id', notificacionesController_1.notificacionesController.update);
         this.router.get('/isFromActualUser/:id', notificacionesController_1.notificacionesController.isFromActualUser);

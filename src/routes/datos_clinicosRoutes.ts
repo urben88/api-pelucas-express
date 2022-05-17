@@ -3,6 +3,7 @@ import Router from "express";
 import { datos_clinicosController } from "../controllers/datos_clinicosController";
 //todo Middleware para las rutas
 import auth from '../middlewares/auth'
+import admin from '../middlewares/admin'
 class Datos_ClinicosRoutes{
     public router = Router();
 
