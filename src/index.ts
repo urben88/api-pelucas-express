@@ -54,6 +54,7 @@ class Server{
             origin:[
                 'https://www.pelucassolidarias.tk',
                 'http://www.pelucassolidarias.tk',
+                'https://www.pelucassolidarias.tk:433',
                 'http://localhost:4200',
                 'http://localhost:4200/'
             ]
