@@ -55,9 +55,6 @@ class Server {
             origin: [
                 'https://www.pelucassolidarias.tk',
                 'http://www.pelucassolidarias.tk',
-                'https://www.pelucassolidarias.tk:433',
-                'http://www.ec2-13-37-216-185.eu-west-3.compute.amazonaws.com',
-                'http://ec2-13-37-216-185.eu-west-3.compute.amazonaws.com:82',
                 'http://localhost:4200'
             ]
         }));
