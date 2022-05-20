@@ -3,6 +3,7 @@ import { solicitudesController } from "../controllers/solicitudesController";
 
 //todo Middleware para las rutas
 import auth from '../middlewares/auth'
+import admin from '../middlewares/admin'
 
 class SolicitudesRoutes{
     public router = Router();
@@ -13,15 +14,15 @@ class SolicitudesRoutes{
 
     config():void{
         this.router.get('/',solicitudesController.index)
-        this.router.get('/findAll',solicitudesController.findAll)
-        this.router.get('/findAllSimple',solicitudesController.findAllSimple)
+        this.router.get('/findAll',admin,solicitudesController.findAll)
+        this.router.get('/findAllSimple',admin,solicitudesController.findAllSimple)
         this.router.get('/findOneByUser/:id',solicitudesController.findOneByUser)
         this.router.post('/create',solicitudesController.create)
         this.router.get('/userHave/:id',solicitudesController.userHave)
         this.router.get('/findOne/:id',solicitudesController.findOne)
         this.router.put('/:id',solicitudesController.update)
         this.router.delete('/:id',solicitudesController.remove)
-        this.router.put('/updateStatus/:id',solicitudesController.updateStatus)
+        this.router.put('/updateStatus/:id',admin,solicitudesController.updateStatus)
        
         // this.router.put('/:id',chequesRegaloController.update)
         // this.router.delete('/:id',chequesRegaloController.remove)

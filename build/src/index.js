@@ -55,7 +55,9 @@ class Server {
             origin: [
                 'https://www.pelucassolidarias.tk',
                 'http://www.pelucassolidarias.tk',
-                'http://localhost:4200'
+                'https://www.pelucassolidarias.tk:433',
+                'http://localhost:4200',
+                'http://localhost:4200/'
             ]
         }));
         //Sirve para que el servidor puede leer objetos json en las peticiones
@@ -75,7 +77,7 @@ class Server {
         this.app.use("/api/datos_clinicos", auth_1.default, datos_clinicosRoutes_1.default);
         this.app.use("/api/medidas", auth_1.default, medidasRoutes_1.default);
         this.app.use("/api/notificaciones", auth_1.default, notificacionesRoutes_1.default);
-        this.app.use("/api/centros", auth_1.default, centrosRoutes_1.default);
+        this.app.use("/api/centros", centrosRoutes_1.default);
         this.app.use("/api/cheques_regalo", auth_1.default, cheques_regaloRoutes_1.default);
         this.app.use("/api/cabellos", auth_1.default, cabellosRoutes_1.default);
         this.app.use("/api/protesis", auth_1.default, protesisRoutes_1.default);

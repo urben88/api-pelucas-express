@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const centrosController_1 = require("../controllers/centrosController");
 //todo Middleware para las rutas
 const auth_1 = __importDefault(require("../middlewares/auth"));
+const admin_1 = __importDefault(require("../middlewares/admin"));
 class AuthRoutes {
     constructor() {
         this.router = (0, express_1.default)();
@@ -15,7 +16,7 @@ class AuthRoutes {
     config() {
         this.router.get('/', centrosController_1.centrosController.index);
         this.router.get('/findBy/:attr/:value', centrosController_1.centrosController.findBy);
-        this.router.put('/update', auth_1.default, centrosController_1.centrosController.update);
+        this.router.put('/update', auth_1.default, admin_1.default, centrosController_1.centrosController.update);
     }
 }
 const authRoutes = new AuthRoutes();

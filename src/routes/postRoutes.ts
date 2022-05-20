@@ -4,6 +4,9 @@ import {postController} from "../controllers/postController";
 
 //!Guards
 import PostGuard from "../guards/PostGuard"
+//todo Middleware para las rutas
+import auth from '../middlewares/auth'
+import admin from '../middlewares/admin'
 class AuthRoutes{
     public router = Router();
 

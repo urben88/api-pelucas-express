@@ -2,7 +2,7 @@ FROM node:16.13.0-alpine3.14
 
 WORKDIR /app
 
-COPY ./build .
+COPY . .
 COPY package.json .
 
 RUN npm install

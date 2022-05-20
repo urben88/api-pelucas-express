@@ -3,6 +3,7 @@ import Router from "express";
 import { chequesRegaloController } from "../controllers/cheques_regaloController";
 //todo Middleware para las rutas
 import auth from '../middlewares/auth'
+import admin from '../middlewares/admin'
 class Cheques_regaloRoutes{
     public router = Router();
 

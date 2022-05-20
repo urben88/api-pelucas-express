@@ -90,7 +90,7 @@ User.isColaborador = function(roles){
   return tmpArray.includes('colaborador');
 }
 // Comprueba que el usuario es receptor
-User.isAdmin = function(roles){
+User.isReceptor = function(roles){
   let tmpArray = [] ;
   roles.forEach(role => tmpArray.push(role.role))
   return tmpArray.includes('receptor');

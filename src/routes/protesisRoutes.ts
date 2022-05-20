@@ -3,6 +3,7 @@ import { protesisController } from "../controllers/protesisController";
 
 //todo Middleware para las rutas
 import auth from '../middlewares/auth'
+import admin from '../middlewares/admin'
 
 class ProtesisRoutes{
     public router = Router();
