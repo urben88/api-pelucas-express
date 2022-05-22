@@ -15,14 +15,19 @@ export default (req:any,res:any,next:any):any =>{
         jwt.verify(token,authConfig.secret,(err:any, decoded:any) =>{
 
             if(err){
-                res.status(500).json({msg: "Ha ocurrido un problema al decodificar el token", err })
+                res.status(500).json(err)
             }else{
                //*El decoded es el usuario del token (devuelve el objeto del usuario)
-               User.findByPk(decoded.user.id,{ include: "roles"}).then((user:any)=>{
-                  console.log(user.roles)
+               User.findOne({
+                where:{id:decoded.user.id},
+                include: "rol"
+              }).then((user:any)=>{
+                  console.log(user.rol)
                   req.user = user
                   next();  
-               })
+               }).catch((err:any)=>{
+                 throw ("Error en el auth middleware")
+               })   
               
             }
 

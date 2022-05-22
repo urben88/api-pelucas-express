@@ -11,7 +11,12 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             User.hasMany(models.Post, { as: "posts", foreignKey: "userId" }); //{ as:"posts", foreignKey:"userEmail"}
-            User.belongsToMany(models.Role, { as: "roles", through: "user_role", foreignKey: "user_id" });
+            User.belongsToMany(models.Role, { as: "rol", through: "user_role", foreignKey: "user_id" });
+            User.hasMany(models.User_role, { as: "user_role_user", foreignKey: "user_id" });
+            User.hasOne(models.Datos_clinicos, { as: "datos_clinicos", foreignKey: "user_id" });
+            User.hasOne(models.Medidas, { as: "medidas", foreignKey: "user_id" });
+            User.hasMany(models.Notificaciones, { as: "notificaciones", foreignKey: "user_id" });
+            User.hasOne(models.Solicitudes, { as: "solicitud", foreignKey: "user_id" });
         }
     }
     User.init({
@@ -39,6 +44,14 @@ module.exports = (sequelize, DataTypes) => {
                     msg: "El correo electronico no está bien escrito"
                 },
             }
+        },
+        telefono: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        cpostal: {
+            type: DataTypes.STRING,
+            allowNull: false
         },
         password: {
             type: DataTypes.STRING,
@@ -74,7 +87,7 @@ module.exports = (sequelize, DataTypes) => {
         return tmpArray.includes('colaborador');
     };
     // Comprueba que el usuario es receptor
-    User.isAdmin = function (roles) {
+    User.isReceptor = function (roles) {
         let tmpArray = [];
         roles.forEach(role => tmpArray.push(role.role));
         return tmpArray.includes('receptor');

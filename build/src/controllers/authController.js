@@ -17,7 +17,9 @@ exports.authController = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 //? Importo el modelo user
-const { User } = require('../database/models'); //! Mirar si le puedo poner un type al ORM
+const { User } = require('../database/models/index'); //! Mirar si le puedo poner un type al ORM
+const { Role } = require('../database/models');
+const { User_role } = require('../database/models');
 //? Configuración para el auth
 const auth_1 = __importDefault(require("../../config/auth"));
 //Todo Tipos de status a usar
@@ -38,7 +40,8 @@ class AuthController {
             yield User.findOne({
                 where: {
                     email: email
-                }
+                },
+                include: 'rol'
             }).then((User) => {
                 if (!User) {
                     res.status(404).json({ msg: "Usuario no encontrado" });
@@ -70,25 +73,98 @@ class AuthController {
         return __awaiter(this, void 0, void 0, function* () {
             //? Encriptamos la contraseña
             let password = bcryptjs_1.default.hashSync(req.body.password, +auth_1.default.rounds); //? El mas lo tranforma en número
+            let rol = yield Role.findOne({ where: { role: req.body.rol } });
             //*Crear un usuario
             yield User.create({
                 nombre: req.body.nombre,
                 apellidos: req.body.apellidos,
                 email: req.body.email,
-                password: password
+                password: password,
+                telefono: req.body.telefono,
+                cpostal: req.body.cpostal,
             })
                 .then((User) => {
+                // console.log('User',User.id)
+                // console.log('rol',rol)
                 //? Creamos el token
                 let token = jsonwebtoken_1.default.sign({ user: User }, auth_1.default.secret, {
                     expiresIn: auth_1.default.expires
                 });
-                res.json({
-                    user: User,
-                    token: token
+                User_role.create({
+                    user_id: User.dataValues.id,
+                    role_id: rol.id
+                }).then((User_Role) => {
+                    res.json({
+                        user: User,
+                        token: token,
+                    });
+                }).catch((error) => {
+                    res.status(500).json({ error, msg: "Error en rol" });
                 });
             }).catch((error) => {
                 res.status(500).json(error);
             });
+        });
+    }
+    //TODO Falta hacer el update
+    update(req, res) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            let passwordencript;
+            if (req.body.password) {
+                passwordencript = bcryptjs_1.default.hashSync(req.body.password, +auth_1.default.rounds); //? El mas lo tranforma en número
+            }
+            // let user:UserI;
+            console.log(req.body);
+            //? Decodifico el jwt
+            jsonwebtoken_1.default.verify((_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1], auth_1.default.secret, (err, decoded) => {
+                //? Actualizo el usuario
+                let resul = req.body;
+                if (req.body.password) {
+                    resul.password = passwordencript;
+                }
+                // console.log(resul)
+                // console.log(decoded.user)
+                User.update(resul, { where: { id: decoded.user.id } })
+                    .then((newUser) => {
+                    res.status(200).json({ msg: "Se ha actualizado con éxito" });
+                }).catch((err) => {
+                    console.log(err);
+                    res.status(500).json(err);
+                });
+            });
+        });
+    }
+    refreshToken(req, res) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            let refreshToken = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(' ')[1];
+            //?Si no existe el token
+            if (!refreshToken) {
+                res.status(400).json({ msg: "Algo ha ido mal en el refresh del token" });
+            }
+            let userfind;
+            try {
+                const verifyResult = jsonwebtoken_1.default.verify(refreshToken, auth_1.default.secret);
+                const { user } = verifyResult;
+                userfind = yield User.findByPk(user.id);
+            }
+            catch (error) {
+                return res.status(500).json({ msg: "Algo ha ido mal en buscar al usuario de refrescar", error: error, token: refreshToken });
+            }
+            const token = jsonwebtoken_1.default.sign({ user: userfind }, auth_1.default.secret, { expiresIn: auth_1.default.expires });
+            res.status(200).json({ token: token });
+        });
+    }
+    isAdmin(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // User.isAdmin(req.user)
+            res.status(200).json(req.user);
+        });
+    }
+    getUser(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            res.status(200).json(req.user);
         });
     }
 }

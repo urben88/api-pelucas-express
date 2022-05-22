@@ -24,7 +24,9 @@ module.exports = {
                     references: {
                         model: "users",
                         key: 'id'
-                    }
+                    },
+                    onDelete: "CASCADE",
+                    onUpdate: "CASCADE"
                 },
                 role_id: {
                     type: Sequelize.INTEGER,
@@ -32,7 +34,10 @@ module.exports = {
                     references: {
                         model: "roles",
                         key: 'id'
-                    }
+                    },
+                    //?Con esto evito que cuando se borre un usuario se borre tambien el rol en la tabal role
+                    onDelete: "NO ACTION",
+                    onUpdate: "CASCADE"
                 },
                 createdAt: {
                     allowNull: false,

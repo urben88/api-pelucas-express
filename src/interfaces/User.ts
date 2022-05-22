@@ -1,8 +1,26 @@
 export interface UserI {
+    id?:        number;
     nombre:    string;
     apellidos: string;
+    telefono:  string;
+    cpostal:   string;
     email:     string;
     password:  string;
-    updatedAt: Date;
+    rol:       Rol[];
+    createdAt?: Date;
+    updatedAt?: Date;
+}
+export interface Rol {
+    id:        number;
+    role:      string;
     createdAt: Date;
+    updatedAt: Date;
+    user_role: UserRole;
+}
+
+export interface UserRole {
+    createdAt: Date;
+    updatedAt: Date;
+    role_id:   number;
+    user_id:   number;
 }
